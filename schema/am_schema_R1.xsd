@@ -1,0 +1,3356 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:element name="amVendorMaterialDB" type="AMMaterialDBType">
+    <xs:annotation>
+      <xs:documentation>The "amMaterialDB" element is a database that captures material properties (in a separate "amFeedstoclMaterial" element for each material) as provided by the vendor.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="amMachineDB" type="AMMachineDBType">
+    <xs:annotation>
+      <xs:documentation>The "amMachinelDB" element is a database that captures machine properties (in a separate "amMachine" element for each machine) as provided by the user.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="amPartDB" type="AMPartDBType">
+    <xs:annotation>
+      <xs:documentation>The "amBuildDB" element is a database that captures parameters and outcomes of multiple builds (in a separate "amBuild" element for each build).</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="amBuildDB" type="AMBuildDBType">
+    <xs:annotation>
+      <xs:documentation>The "amBuildDB" element is a database that captures parameters and outcomes of multiple builds (in a separate "amBuild" element for each build).</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="amTestDB" type="amTestDBType"/>
+  <xs:element name="amFeedstockMaterialTestDB" type="AMMaterialTestDBType">
+    <xs:annotation>
+      <xs:documentation>The "amFeedstockMaterialTestDB" element is a database that captures the properties of a specific lot of a material. This information is provided by the user.</xs:documentation>
+    </xs:annotation>
+  </xs:element>
+  <xs:complexType name="FeedStockMaterialTestType">
+    <xs:sequence>
+      <xs:element name="materialName" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>The "materialName" element captures the nonproprietary name of the material. For example, EOS Titanium Ti64 would have a materialName of "Ti6Al4V".</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="materialVendor" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>The "materialVendor" element captures the name of the vendor of the material. For example, EOS GmbH manufactures EOS Titanium Ti64, so the materialVendor would be "EOS GmbH". </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="vendorMaterialName" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>?? DUPLICATE</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="materialID" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>The "materialID" element captures the vendor supplied ID for the material. For example, EOS Titanium Ti64 would have a materialID of "9011-0014".</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="materialLot" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>The batch from which we are using the powder</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="testID" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Unique ID of the test performed on the powder</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="testName" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Name of the test performed on the powder</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="testType">
+        <xs:annotation>
+          <xs:documentation>Need information from material scientists to define th etype enumeration of material test</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="testOperator" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Person or group who was operating the test</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="testLocation" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Location of the test</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="startTime" type="xs:dateTime">
+        <xs:annotation>
+          <xs:documentation>Start time for the test</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="stopTime" type="xs:dateTime">
+        <xs:annotation>
+          <xs:documentation>End time of the test</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="testStandards" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Standards (eg. ISO) used for this test</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="description" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Description of the test</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element maxOccurs="unbounded" name="testEquipment" type="EquipmentType">
+        <xs:annotation>
+          <xs:documentation>Equipment (eg. machine, software) used for this test</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="feedstockMaterialTestReport">
+        <xs:annotation>
+          <xs:documentation>Need information from material scientist to define the structure for feedstock material test results</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AMMaterialDBType">
+    <xs:sequence maxOccurs="1" minOccurs="1">
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="amVendorMaterial"
+        type="VendorMaterialType">
+        <xs:annotation>
+          <xs:documentation>The "amFeedstockMaterial" element captures the material properties--provided by the vendor--of a single material. Multiple "amFeedstockMaterial" elements can be added under one "amMaterialDB".</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AMMaterialTestDBType">
+    <xs:sequence maxOccurs="1" minOccurs="1">
+      <xs:element maxOccurs="unbounded" minOccurs="1" name="amFeedstockMaterial"
+        type="FeedStockMaterialTestType">
+        <xs:annotation>
+          <xs:documentation>The "amFeedstockMaterial" element captures the material properties--provided by the vendor--of a single material. Multiple "amFeedstockMaterial" elements can be added under one "amMaterialDB".</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AMMachineDBType">
+    <xs:sequence maxOccurs="1" minOccurs="1">
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="amMachine" type="AMmachineType">
+        <xs:annotation>
+          <xs:documentation>The "amMachine" element captures the machine properties--provided by the user--of a single machine. Multiple "amMachine" elements can be added under one "amMachineDB".</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AMBuildDBType">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="1" name="amBuild" type="BuildType">
+        <xs:annotation>
+          <xs:documentation>The "amBuild" element captures the build parameters and testing results--provided by the user--of a single build that can contain multiple, separate parts built with one or more different parameter sets. Multiple "amBuild" elements can be added under one "amBuildDB".</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AMPartDBType">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="1" name="amParts" type="PartType">
+        <xs:annotation>
+          <xs:documentation>The "amBuild" element captures the build parameters and testing results--provided by the user--of a single build that can contain multiple, separate parts built with one or more different parameter sets. Multiple "amBuild" elements can be added under one "amBuildDB".</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="amTestDBType">
+    <xs:sequence maxOccurs="unbounded">
+      <xs:element name="amUnitTest" type="UnitBuildTestType"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PartType">
+    <xs:sequence>
+      <xs:element name="projectID" type="xs:string"/>
+      <xs:element maxOccurs="unbounded" minOccurs="1" name="part">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="partName" type="xs:string">
+              <xs:annotation>
+                <xs:documentation>The "partName" element captures the name of the part provided by the user.</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="partID" type="xs:string">
+              <xs:annotation>
+                <xs:documentation>The "partID" element captures the ID of the part provided by the user. This number links the part with previously defined build parameters.</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="spec" type="SpecType">
+              <xs:annotation>
+                <xs:documentation>??The "spec" element captures the characteristics of the part that includes surface area, shape etc.</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+            <xs:element maxOccurs="1" name="partDrawing" type="AMDocumentType">
+              <xs:annotation>
+                <xs:documentation>??The "partDrawing" element captures the 3D drawing of the part in a CAD software.</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="unit" type="xs:string">
+              <xs:annotation>
+                <xs:documentation>STL file format used by many powder bed fusion machines does not contain units of measurement as metadata (SI or SAE). When only STL files are provided by the purchaser, ordering information should specify the units of the component along with the electronic data file. More information about data files can be found in ISO/ASTM 52915</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="tesselatedModel" type="AMDocumentType" minOccurs="0">
+              <xs:annotation>
+                <xs:documentation>This element captures a tesselated geometry from a CAD model which is typically used for a 3 D print- and to be sliced. It is optional.</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+            <xs:element maxOccurs="1" minOccurs="0" name="digitalModel" type="DigitalModelType">
+              <xs:annotation>
+                <xs:documentation>??The "digitalModel" element captures a digital model of the part. It is optional.</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TestType">
+    <xs:sequence>
+      <xs:element name="specimenCollection">
+        <xs:annotation>
+          <xs:documentation>Just added on 1/5: For the case of RR test: one coupon (Part) includes 5-6 specimen</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="specimen">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="specimenID" type="xs:string" minOccurs="1">
+                    <xs:annotation>
+                      <xs:documentation>The specimenID element captures the ID of the specimen provided by the user.</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                  <xs:element name="partID" type="xs:string">
+                    <xs:annotation>
+                      <xs:documentation>The ID of the part this specimen is cut from.</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                  <xs:element name="specimenShape" type="SpecimenShapeEnumType" minOccurs="1">
+                    <xs:annotation>
+                      <xs:documentation>If the part is a specimen, the specimenShape element captures the shape (For example, recangular, square etc.) in the dropdownmenu. Choose a shape from the dropdown menu.</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                  <xs:element name="specimenOrientation" type="SpecimenOrientationEnumType"
+                    minOccurs="1">
+                    <xs:annotation>
+                      <xs:documentation>If the part is a specimen, the orientation element captures the orthoganal orientation of the specimen (For example, XYZ, YXZ, YZX, XZY, ZXY, ZYX).</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                  <xs:element minOccurs="0" name="specimenDrawing" type="AMDocumentType"/>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="testSeries" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="unbounded" name="amUnitTest" type="UnitBuildTestType"
+              minOccurs="0">
+              <xs:annotation>
+                <xs:documentation>The "amUnitTest" element captures the characteristics of different types of test (For example, Tensile, Dimensional etc.) that can be performed on the speciment and their results. Multiple tests can be added.</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="SpecimenType">
+    <xs:sequence>
+      <xs:element name="associatedPartNumber" type="xs:string"/>
+      <xs:element maxOccurs="1" minOccurs="0" name="specimenDrawing" type="AMDocumentType">
+        <xs:annotation>
+          <xs:documentation>The specimenDrawing element captures the 3D drawing or 2D drawing of the specimen.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="UnitBuildTestType">
+    <xs:sequence>
+      <xs:element name="testID" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>The "testID" element captures the ID for the test performed provided by the test operator.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="testName" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>The "testName" element captures the name of the test provided by the test operator. It is optional</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="testType" type="TestEnumType">
+        <xs:annotation>
+          <xs:documentation>??MISSPELLINGS The "testType" element captures the Dimensional, Surface, Tensile, Stress Controlled Fatigue and Strain Controlled Fatigue test in a dropdown box. Choose the type of the test (eg. Tensile) from the dropdown menu.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="testOperator" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>The "testOperator" element captures the name of the person who performed the test.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="testLocation" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>The "testLocation" element captures the place where the test took place.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="startTime" type="xs:dateTime">
+        <xs:annotation>
+          <xs:documentation>The "startTime" element captures the time when the test started. It is in dateTime format (YYYY-MM-DDThh:mm:ss).</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="stopTime" type="xs:dateTime">
+        <xs:annotation>
+          <xs:documentation>The "stopTime" element captures the time when the test ended. It is in dateTime format (YYYY-MM-DDThh:mm:ss).</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="partID" type="xs:string" minOccurs="0"/>
+      <xs:element name="buildID" type="xs:string"/>
+      <xs:element name="specimenID" type="xs:string" minOccurs="1">
+        <xs:annotation>
+          <xs:documentation>If the the test is conducted on a pecimen/coupon, the "specimenID" element captures the ID of the specimen provided by the test operator.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="specimenPreparation" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>For example: ASTM ASTM E3-11 Standard Guide for Preparation of Metallographic Specimens</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="testStandards" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>The "testStandards" element captures the name of the test that was performed on the specimen following a specific standard. For example, ASTM A635 refers thermal conductivity testing that follows ASTM standards.
+E8/E8M Test Methods for Tension Testing of Metallic Materials
+E9 Test Methods of Compression Testing of Metallic Materials
+at Room Temperature
+E10 Test Method for Brinell Hardness of Metallic Materials
+E11 Specification for Woven Wire Test Sieve Cloth and Test
+Sieves
+E18 Test Methods for Rockwell Hardness of Metallic Materials
+E21 Test Methods for Elevated Temperature Tension Tests of
+Metallic Materials
+E23 Test Methods for Notched Bar Impact Testing of Metallic
+Materials
+E29 Practice for Using Significant Digits in Test Data to
+Determine Conformance with Specifications
+E238 Test Method for Pin-Type Bearing Test of Metallic
+Materials
+E384 Test Method for Knoop and Vickers Hardness of
+Materials
+E399 Test Method for Linear-Elastic Plane-Strain Fracture
+Toughness KIc of Metallic Materials
+E407 Practice for Microetching Metals and Alloys</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="description" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>The "description" element captures the process and reason of the test.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element maxOccurs="unbounded" name="testEquipment" type="EquipmentType">
+        <xs:annotation>
+          <xs:documentation>The "testEquipment" element captures the characteristics of different equipment or machine used to perform the test. Multiple testEquipment can be added.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="testResults" type="TestReportType">
+        <xs:annotation>
+          <xs:documentation>The "testResult" element captures the outcomes or results of the test.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="rawDataFile" type="AMDocumentType"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="UnitTreatmentType">
+    <xs:sequence>
+      <xs:element name="treatmentType" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>The "treatmentType" element captures different type of treatment (Remove support, Heat treatment and Surface finish) in a dropdown menu. Choose which treatment type was used in post process from the dropdown menu.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="description" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>The "description" element captures the characteristics of the treatment type selected from the dropdown menu above.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="performer" type="xs:string"/>
+      <xs:element name="startTime">
+        <xs:annotation>
+          <xs:documentation>?? The "startTime" element captures the time when the treatment process started.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="finishTime">
+        <xs:annotation>
+          <xs:documentation>?? The "finishTime" element captures the time when the treatment process was over.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:choice>
+        <xs:element name="removeSupport" type="RemoveSupportType">
+          <xs:annotation>
+            <xs:documentation>The "removeSupport" element captures the process of removing the support material from the build product.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="stressRelief" type="HeatTreatmentType">
+          <xs:annotation>
+            <xs:documentation>stress relief settings</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="HIP" type="HeatTreatmentType">
+          <xs:annotation>
+            <xs:documentation>HIP settings</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+        <xs:element name="surfaceFinish" type="FinishType">
+          <xs:annotation>
+            <xs:documentation>The "surfaceFinish" element captures the overall description of the surface including the texture, the flaws, the materials, and any coating applied.</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+      </xs:choice>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="RemoveSupportType">
+    <xs:sequence>
+      <xs:element maxOccurs="1" name="operator" type="PersonnelType">
+        <xs:annotation>
+          <xs:documentation>The "operator" element captures the name of the person who performed the treatment on the build product, his or her title, and his or her operating hours.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element maxOccurs="unbounded" name="tools" type="EquipmentType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The "tools" element captures the tools or machines used for removing the support material. Multiple tools can be added.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="removalTemp" type="VariableType">
+        <xs:annotation>
+          <xs:documentation>The "removalTemp" captures the temperature at which the support material was removed. </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="observation" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>The "observation" element captures the characteristics of the build product observed during this stage.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="StressReliefType">
+    <xs:sequence>
+      <xs:element name="holdTemp" type="VariableType">
+        <xs:annotation>
+          <xs:documentation>The "HoldTemp" element refers to the maximum temperature after which it does not change.  </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="holdTime" type="VariableType">
+        <xs:annotation>
+          <xs:documentation>The "HoldTime" element catures how long it stayed at the holdTemp. It is an unsignedInt. Type in a positive integer in the box.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="heatingRate" type="VariableType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The "HeatingRate" element captures the rate at which the temperature rose from the room temperature to the hold temperature.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="cooling">
+        <xs:annotation>
+          <xs:documentation>The "CoolingRate" element captures the rate at which the metal was cooled down. It is optional.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="1" name="coolStage">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="coolingRange" type="RangeType"/>
+                  <xs:element name="coolingRate" type="VariableType"/>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="HeatTreatmentType">
+    <xs:sequence>
+      <xs:element name="holdTemp" type="VariableType">
+        <xs:annotation>
+          <xs:documentation>The "HoldTemp" element refers to the maximum temperature after which it does not change.  </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="holdTime" type="VariableType">
+        <xs:annotation>
+          <xs:documentation>The "HoldTime" element catures how long it stayed at the holdTemp. It is an unsignedInt. Type in a positive integer in the box.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="1" name="cooling">
+        <xs:annotation>
+          <xs:documentation>The "CoolingRate" element captures the rate at which the metal was cooled down. It is optional.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="1" name="coolStage">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="coolingRange" type="RangeType"/>
+                  <xs:element name="coolingRate" type="VariableType"/>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="heatingRate" type="VariableType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The "HeatingRate" element captures the rate at which the temperature rose from the room temperature to the hold temperature.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="atmosphere" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Only for HIP; For example Argon</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="pressure" type="VariableType">
+        <xs:annotation>
+          <xs:documentation>Only for HIP.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="FinishType"/>
+  <xs:complexType name="LaserSystemType">
+    <xs:sequence>
+      <xs:element name="machineVendor" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Vendor name of the laser system.
+</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="machineModel" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Model name of the laser system.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="machineSerialNumber" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Serial number of the laser system.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="laserType" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Describe the type of laser. Example input "ytterbium fiber laser"</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="dateOfMade" type="xs:date">
+        <xs:annotation>
+          <xs:documentation>Date of manufacturing of the laser system.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ratedPower" type="VariableType">
+        <xs:annotation>
+          <xs:documentation>Actual rated power of the laser system. </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ratedWaveLength" type="LaserWaveLengthEnumType">
+        <xs:annotation>
+          <xs:documentation>The wavelength of the laser.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="lensType" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Describe the type of lens. Example "f-theta-lens"</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="lensInstallationDate" type="xs:date">
+        <xs:annotation>
+          <xs:documentation>Installation date of lens assembly.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="laserMode" type="xs:string"/>
+      <xs:element name="laserBeam">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="1" name="beamShape" type="xs:string">
+              <xs:annotation>
+                <xs:documentation>beam profile: Gaussian or Top-Hat</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="minBeamSpot" type="VariableType"/>
+            <xs:element name="maxBeamSpot" type="VariableType"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PersonnelType">
+    <xs:sequence>
+      <xs:element name="Name" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The "Name" element captures the name of the operator who performed the treatment type on the build product.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Title" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The "Title" element captures the title of the operator.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="OperatingHours" type="xs:integer" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The "OperatingHours" element captures the operating hours of the operator. It is an integer type. Type in an integer in the box.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TensileType">
+    <xs:sequence>
+      <xs:element name="speed" type="VariableType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The "Speed" element captures the speed of the machine. It is optional.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="temp" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The "Temp" element captures the Temperature inside the machine during testing. The value can be "Room". It is optional.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="UTS" type="VariableType">
+        <xs:annotation>
+          <xs:documentation>The "UTS" element refers to ultimate tensile strength. It is the maximum stress the material will sustain before fracture.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="UltLoad" type="VariableType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The "UltLoad" element captures the maximum load needed to perform this test. It is optional.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="YS" type="VariableType">
+        <xs:annotation>
+          <xs:documentation>The "YS" element refers to yield strength. It is the stress corresponding to a specified permanent (plastic) deformation.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="YLD" type="VariableType">
+        <xs:annotation>
+          <xs:documentation>YLD captures the loaded needed for 0.2% Yield Strength</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Elongation" type="VariableType" minOccurs="1">
+        <xs:annotation>
+          <xs:documentation>The "Elongation" element captures the the increase in the gauge length, measured after fracture of the specimen within the gauge length, usually expressed as a percentage of the original gauge length. </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="RA" type="VariableType">
+        <xs:annotation>
+          <xs:documentation>Ruduction Area in %</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="E" type="VariableType">
+        <xs:annotation>
+          <xs:documentation>The "E" element refers to the elastic modulus (E). It is a number that measures an object or substance's resistance to being deformed elastically when a force is applied to it.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="origDimensions" type="DimensionalType">
+        <xs:annotation>
+          <xs:documentation>The "origDImensions" element capture the original dimensions of the specimen. It is optional.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="finalDimensions" type="DimensionalType" minOccurs="1" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>The "FinalDImensions" element capture the final dimensions of the specimen. It is optional.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="DimensionalType">
+    <xs:sequence>
+      <xs:element name="diameter" type="VariableType" minOccurs="1">
+        <xs:annotation>
+          <xs:documentation>The "diameter" element captures the maximum, minimum and average diameter of the model</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="gageLength" type="VariableType" minOccurs="1">
+        <xs:annotation>
+          <xs:documentation>The "gapeLength" element captures the maximum, minimum, and average gage length of the model. It is optional.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="height" type="VariableType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The "height" element captures the maximum, minimum, and average height of the model. It is optional.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="width" type="VariableType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The "width" element captures the maximum, minimum, and average width of the model. It is optional.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="thickness" type="VariableType" minOccurs="0" nillable="false">
+        <xs:annotation>
+          <xs:documentation>The "thickness" element captures the maximum, minimum, and average thickness of the model. It is optional.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="StrainControlledFatigueType">
+    <xs:sequence>
+      <xs:element name="medium" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The "medium" element captures the medium or environment under which the test was performed. It is optional.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="humidity" type="xs:decimal" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The "humidity" element captures the humidity during the testing. It is a decimal type. Type in a number in the box. It is optional.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="temp" type="xs:string" minOccurs="1">
+        <xs:annotation>
+          <xs:documentation>The "temp" element captures the temperature at which the test was performed. It is decimal type. The value could be "Room". It is optional.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="waveform" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The "waveform" element captures the type of wave (Eg. Sinusoidal).</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="targetStrainAmp" type="VariableType">
+        <xs:annotation>
+          <xs:documentation>??The "targetStrainAmp" element captures the amplification of the targetted strain.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="frequency" type="VariableType">
+        <xs:annotation>
+          <xs:documentation>The frequemncy of stress cycle, eg, 0.5HZ. </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="strainRatioR" type="xs:int">
+        <xs:annotation>
+          <xs:documentation>The "strainRatioR" element captures the measurement of the ability of a sheet metal to resist thinning or thickening when subjected to a tensile or compressive force.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Ni" type="xs:int" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The "Ni" element captures the number of initial cycles. It is an integer type. Type in an integer in the box. It is optional.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Nf" type="xs:int">
+        <xs:annotation>
+          <xs:documentation>The "Nf" element captures the number of final cycles. It is an integer type. Type in an integer in the box. It is optional.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="tf" type="VariableType">
+        <xs:annotation>
+          <xs:documentation>tf = (Cycles@Strain /CPM +Cycles@load /CPM)*1hr / 60 min</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="failureDescription" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>?? The "failureDescription" element captures the reason of failure if the testing failed. It is optional.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element maxOccurs="unbounded" name="cycle" type="CycleType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The "cycle" element captures the characteristic of the cycle. Multiple cycle can be added.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="diameterAtRT" type="VariableType">
+        <xs:annotation>
+          <xs:documentation>Specimen Room Temperature Diameter</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="gageLengthTT" type="VariableType">
+        <xs:annotation>
+          <xs:documentation>gage length at test temperature</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="modulousAtRT" type="VariableType">
+        <xs:annotation>
+          <xs:documentation>E at Room temperature</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="StressControlledFatigueType">
+    <xs:sequence>
+      <xs:element name="temp" type="xs:string" minOccurs="1">
+        <xs:annotation>
+          <xs:documentation>The "temp" element captures the temperature at which the test was performed.  Type in "Room" or a number in the box. It is optional.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="medium" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The "medium" element captures the medium or environment under which the test was performed. Type "Lab Air" for example. It is optional.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="humidity" type="xs:decimal" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The "humidity" element captures the humidity during the testing. It is a decimal type. Type in a number in the box. It is optional.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="waveform" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The "waveform" element captures the type of wave. For example, continious wave, pulse etc. It is optional.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="measuredDiameter" type="VariableType"/>
+      <xs:element name="maxStress" type="VariableType"/>
+      <xs:element name="maxLoad" type="VariableType"/>
+      <xs:element name="minStress" type="VariableType"/>
+      <xs:element name="minLoad" type="VariableType"/>
+      <xs:element name="frequency" type="VariableType">
+        <xs:annotation>
+          <xs:documentation>The "frequency" element captures the frequency of the wave. It is a decimal type. Type in a number in the box, eg., 40HZ</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="cyclesToFailure" type="xs:int" minOccurs="1">
+        <xs:annotation>
+          <xs:documentation>??The "Nf" element captures the number of final cycles. It is an integer type. Type in an integer in the box. It is optional.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="failureLocation" minOccurs="1" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>?? The "failureDescription" element captures the reason of failure if the testing failed. It is optional.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element maxOccurs="unbounded" name="cycle" type="CycleType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The "cycle" element captures the characteristic of the cycle. Multiple cycle can be added.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="CycleType">
+    <xs:sequence>
+      <xs:element name="cycleNumber" type="xs:int">
+        <xs:annotation>
+          <xs:documentation>The "cycleStart" element captures the time When the cycle started. It is an integer type. Type in an integer in the box.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="modulousAtTemp" type="VariableType" minOccurs="1">
+        <xs:annotation>
+          <xs:documentation>The "modulousAtTemp" element captures the the bulk modulus of a substance measures the substance's resistance to uniform compression at this temperature. It is a decinmal type. Type in a number in  the box. It is optional.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="maxStress" type="VariableType">
+        <xs:annotation>
+          <xs:documentation>The "maxStress" element captures the maximum stress in this cycle. It is a decimal type. Type in a number in the box.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="minStress" type="VariableType">
+        <xs:annotation>
+          <xs:documentation>The "minStress" element captures the minimum stress in this cycle. It is a decimal type. Type in a number in the box.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="strainRange" type="VariableType" minOccurs="1">
+        <xs:annotation>
+          <xs:documentation>The "strainRange" element captures the range of the strain. usually in %. Type in a number in the box. It is optional.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="strainRatio" type="VariableType"/>
+      <xs:element minOccurs="0" name="ALTPsudoStress" type="VariableType">
+        <xs:annotation>
+          <xs:documentation>ALTPsudo Stress = 5 * E (start) * StrainRange</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="elasticStrainRange" type="VariableType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The "elasticStrainRange" element captures the range of the elastic strain. It is a decimal type. Type in a number in the box. It is optional.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="plasticStrainRangeCalc" type="VariableType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The "plasticStrainRangeCal" element captures the range of the calculated plastic strain. It is a decimal type. Type in a number in the box. It is optional. </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="PlasticStrainRangeMeas" type="VariableType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The "plasticStrainRangeMeas" element captures the range of the measured plastic strain. It is a decimal type. Type in a number in the box. It is optional. </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="BuildType">
+    <xs:sequence>
+      <xs:element name="projectID" type="xs:string"/>
+      <xs:element name="generalInfo" type="BuildHeaderType">
+        <xs:annotation>
+          <xs:documentation>The "generalInfo" element captures the build ID, name of the service provider, location of the build, name of the customer, name of the material used, name of the vendor who provided the material, ID of the material provided by the vendor, name of the machine used, name of the vendor who provided the machine, model number of the machine, ID of the the machine provided by the vendor, and the build time of the build.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="amProcesses" type="ProcessesType">
+        <xs:annotation>
+          <xs:documentation>??The "amProcess" element captures the pre-process, in-process and post-process characteristics of the build.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="amParts" type="ProductsType">
+        <xs:annotation>
+          <xs:documentation>The "amParts" element captures the characteristics of different parts that are to be printed inside the 'amBuild' element. Multiple parts can be added. They can also be linked to individual parameter sets using the part number.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="amTests" type="TestType">
+        <xs:annotation>
+          <xs:documentation>The "amTests" element captures the characteristics of different tests performed on a specific specimen and their result (inside amUnitTest) and characteristics of the specimen (inside amSpecimen) after the tests were performed on them. Number of the amUnitTest element should be same as the number of the amSpecimen element.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ProcessType"> </xs:complexType>
+  <xs:simpleType name="metadata">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <xs:complexType name="InProcessType">
+    <xs:sequence>
+      <xs:element name="amProcessPlans" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>The "amProcessPlans" element captures the process plan of the EOS and Concept Laser. From the drop down menu, choose either "EOSProcessPlan" or "ConceptLaserProcessPlan". Multiple process plans can be added. </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence maxOccurs="1">
+            <xs:element name="amProcessPlan" maxOccurs="unbounded">
+              <xs:complexType>
+                <xs:sequence maxOccurs="1">
+                  <xs:element name="partID" type="xs:string" maxOccurs="unbounded">
+                    <xs:annotation>
+                      <xs:documentation>The "partNumber" element captures the part ID of the part that was produced with the parameters selected.</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                  <xs:choice maxOccurs="1">
+                    <xs:element name="EOSProcessPlan" type="EOSProcessPlanType">
+                      <xs:annotation>
+                        <xs:documentation>The "EOSProcessPlan" element captures the process plan of AM machines produced by EOS GmbH.</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                    <xs:element name="ConceptLaserProcessPlan" type="EOSProcessPlanType">
+                      <xs:annotation>
+                        <xs:documentation>The "ConceptLaserProcessPlan" element captures the process plan of AM machines made by Concept Laser.</xs:documentation>
+                      </xs:annotation>
+                    </xs:element>
+                  </xs:choice>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="amInSituMonitor" type="MonitorType">
+        <xs:annotation>
+          <xs:documentation>The "amInSituMonitor" element captures measurements that were taken during printing.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="buildLog" type="AMDocumentType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The "buildLog" element captures the buildfile which is an electronic version of a document. It could be 2D drawing, sepc file, and or build file.
+      </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PostProcessingType">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" name="treatment" type="UnitTreatmentType">
+        <xs:annotation>
+          <xs:documentation>The "treatment" element captures the characteristics of different treatment type (remove support, heat treatment, surface finish) that can be performed on the build product.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ProcessesType">
+    <xs:sequence>
+      <xs:element maxOccurs="1" name="preProcess">
+        <xs:annotation>
+          <xs:documentation>The "preProcess" element captures the settings of the machine and the characterisitcs of the materials used before the build started.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="1" name="materialPreProcess" type="MaterialPreProcessType"
+              minOccurs="1">
+              <xs:annotation>
+                <xs:documentation>The "materialPreProcess" element captures the lot ID, sublot ID, ratio of the new powder compare to the used powder, sieving process, material properties and result of the tests performed on the material. Multiple materialPreProcess can be added.</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+            <xs:element maxOccurs="unbounded" name="machineSetup" type="MachineSetupType">
+              <xs:annotation>
+                <xs:documentation>The "machineSetup" element captures the settings of the machine before the build started. Multiple machineSetup can be added.
+All the steps necessary to start the build process,
+including build platform selection, machine cleaning, </xs:documentation>
+              </xs:annotation>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element minOccurs="1" name="inProcess" type="InProcessType">
+        <xs:annotation>
+          <xs:documentation>The "inProcess" element captures the process plan, result of the in situ monitoring and the build log.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element maxOccurs="1" minOccurs="1" name="postProcessing" type="PostProcessingType">
+        <xs:annotation>
+          <xs:documentation>??The "postProcessing" element captures the types of treatment performed on the build product after the build was over.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="EquipMaintainanceHistoryType">
+    <xs:sequence maxOccurs="unbounded">
+      <xs:element name="maintainanceItem" type="EquipMaintainanceItemType">
+        <xs:annotation>
+          <xs:documentation>The "MaintainanceItem" element captures the reason for the maintainancance and the person reponsible for the maintainance. Multiple MaintainanceItem can be added.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="EquipMaintainanceItemType">
+    <xs:sequence>
+      <xs:element name="description" type="metadata">
+        <xs:annotation>
+          <xs:documentation>The "description" element captures the reason and process of the maintencae.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="date" type="xs:date">
+        <xs:annotation>
+          <xs:documentation>The "date" element captures the date of the maintenance. For example, if a machine wasserviced on May 23rd 2015 it would have a "date" of "2015-05-23".</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="operator" type="PersonnelType">
+        <xs:annotation>
+          <xs:documentation>The "operator" element captures the name of the person who repaired the machine, his title and his operating hours.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="EquipCalibrationDataType">
+    <xs:sequence>
+      <xs:element name="description" type="metadata">
+        <xs:annotation>
+          <xs:documentation>The "description" element captures the process and the reason of the calibration.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="fileLocation" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>The "fileLocation" element captures the location of the file about the calibration.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="calibrationDate" type="xs:date">
+        <xs:annotation>
+          <xs:documentation>The "calibrationDate" element captures the date when calibration of the machine was fixed. It is a date type (YYYY-MM-DD). </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="operator" type="PersonnelType">
+        <xs:annotation>
+          <xs:documentation>The "operator" element captures the name of the person who fixed the calibration of the machine, his title and his operating hours.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="EquipCalibrationHistoryType">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" name="calibrationDataItem" type="EquipCalibrationDataType">
+        <xs:annotation>
+          <xs:documentation>The "calibrationDataItem" element captures the characteristics of the calibration process in a document and also includes the date when the calibration of the machine was fixed and the person responsible for this. Multiple calibrationDataItem can be added.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="BuildMaterialType">
+    <xs:sequence>
+      <xs:element name="lot_id" type="xs:unsignedByte" minOccurs="1"/>
+      <xs:element name="lot_information" type="xs:string"/>
+      <xs:element name="cycle_info" type="xs:string"/>
+      <xs:element name="sieving" type="xs:string"/>
+      <xs:element name="mixing" type="xs:string"/>
+      <xs:element name="distribution" type="xs:string"/>
+      <xs:element name="qualification" type="xs:string"/>
+      <xs:element name="chemistry_certificate" type="xs:string" minOccurs="0"/>
+      <xs:element name="description" type="metadata"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="MaterialPreProcessType">
+    <xs:sequence>
+      <xs:element name="materialLotID" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>The "materialLotID" element captures the ID of the lot from which the material comes from.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="materialSublot">
+        <xs:annotation>
+          <xs:documentation>The "materialSublot" element captures the sublot ID of the material that is being used and it's build time.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="subLotID" type="xs:string">
+              <xs:annotation>
+                <xs:documentation>The "subLotID" element captures the ID of the material that is being used from the lot.</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="buildTimes" type="xs:short">
+              <xs:annotation>
+                <xs:documentation>The "buildTimes" element captures the number of builds that were made using the powder. It is a short type. Type in a number in the box.</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="newPowderRatio" type="xs:float">
+        <xs:annotation>
+          <xs:documentation>The "newPowderRatio" captures the ratio of new material to the overall material. It is type float in [0, 1]. Type in a number in the box.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="sieving" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>The "sieving" element captures the process of taking out larger particles from the mixture. It is done based on the siff analysis. Please describe the meathod used and the size of the seive. Please refer to ASTM E1638 Terminology Relating to Sieves, Sieving Methods, and Screening Media. If no sieving was done, please enter "N/A"</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="actualMaterialProperties" type="PowderMaterialPropertiesType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The "actualMaterialProperties" element captures the composition, density and size of the powder. It also captures flowability and emissivity, but they are optional.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="actualPowderChemistryCertificate" type="AMDocumentType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The "actualPowderChemistryCertificate" element captures the certification of powder chemical composition that is suplied from a testing agency. It is optional.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PowderMaterialPropertiesType">
+    <xs:sequence>
+      <xs:element name="powderComposition">
+        <xs:annotation>
+          <xs:documentation>The "powderComposition" element captures the ingredients that make up the material.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="measureMethods" type="xs:string">
+              <xs:annotation>
+                <xs:documentation>ASTM F3049 Power Chemical Composition related standards:  
+Test Method E1447 describes the procedure for
+determining the hydrogen content in solid specimens of titanium and titanium alloys by using the inert gas fusion
+technique combined with measuring the water created by
+passing the hydrogen released through the inert gas fusion over heated copper oxide in an infrared cell.
+Test Method E1569 describes using inert gas fusion
+for determining the oxygen content in tantalum powder.
+Test Method E1941 describes the procedure using
+combustion analysis to determine carbon content in refractory
+and reactive metals.
+Test Method E2371 describes the procedure using
+atomic emission plasma spectrometry to determine the content
+of elements other than oxygen, nitrogen, hydrogen and carbon
+in titanium and titanium alloys.
+Test Method E2792 outlines the procedure for using
+inert gas fusion to determine the hydrogen content in solid
+aluminum and aluminum alloy specimens.</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+            <xs:element maxOccurs="unbounded" name="Ingredient" type="VariableType">
+              <xs:annotation>
+                <xs:documentation>The "Ingredient" element captures the name and percentage of each element in the material. For example, EOS Titanium Ti64 would have 8 "Ingredient" elements. The "Ingredient" element for Aluminum would have the name "Aluminum", the unit "Percentage", and the value "6.75".</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="powderDensity">
+        <xs:annotation>
+          <xs:documentation>The "powderDensity" element captures the apparent density and tap density of the powder.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="apparentDensity">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="measurementMethod" minOccurs="0"
+                    type="PowderApparentDensityMeasurementMethodEnumType">
+                    <xs:annotation>
+                      <xs:documentation>Methods for determining the apparent density of metal
+powder through the use of a Hall flowmeter funnel, a Carney
+funnel, a Scott volumeter, and and Arnold meter are described
+in Test Methods B212, B417, B329, and B703, respectively.
+Apparent density of metal powders using an Arnold Meter is also described in MPIF Standard 48. The ISO standards for determining the apparent density of metallic powders are ISO
+3923-1 and ISO 3923-2.</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                  <xs:element name="apparentDensityValue" type="VariableType" minOccurs="0">
+                    <xs:annotation>
+                      <xs:documentation>The "apparentDensity" element captures the mass per unit volume of loose material (also called bulk density). For example, EOS Titanium Ti64 would have an apparent density of "2.52" and a unit  of "g/cm^3".</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="tapDensity">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element minOccurs="0" name="measurementMethod" type="xs:string">
+                    <xs:annotation>
+                      <xs:documentation>Test Method B527 describes the method of determining
+the tap density of metallic powders and compounds. This
+standard is readily applicable for metal powders for additive
+manufacturing.
+MPIF Standard 46 describes methods for
+measuring the tap density of metal powders.</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                  <xs:element name="tapDensityValue" type="VariableType" minOccurs="0">
+                    <xs:annotation>
+                      <xs:documentation>The "tapDensity" element captures the tap density of the material. The tapped density is obtained by mechanically tapping a graduated cylinder containing the sample until little further volume change is observed. For example, EOS Titanium Ti64 has tapped density of 2.83 with a unit of "g/cm^3".</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="powderSize" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The "powderSize" element captures the powder distribution of the material. For example, size distribution can be calculated using laser diffraction as described in ASTM B822. 
+Test Method B214 give detailed specifications for determining powder particle sizes through a sieving process. This process is applicable for sieves with openings from 45 to 1000 µm, and therefore not suitablefor powders with particles smaller than 45 µm. MPIF Standard
+05 gives similar procedures, as does ISO 4497.
+Test Method B822 describes the use of light scattering
+to measure the particle size distribution. This test method
+describes the limitations of this technique, which may be used as agreed upon by user and manufacturer to measure particlesize distribution for metal powders for additive manufacturing since the allowable particle diameters for this technique range from 0.4 µm to 2 mm.
+ Non-standardized methods such as image analysis
+may also be applicable for measuring the size distribution of a collection of metal particles.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="DValues">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="measurementMethod" type="xs:string">
+                    <xs:annotation>
+                      <xs:documentation>The measurementMethod captures the method or process used to determine the size of the powder, eg, ASTM B214 for Sieving Analysis of Metal Powder.</xs:documentation>
+                    </xs:annotation>
+                  </xs:element>
+                  <xs:element maxOccurs="unbounded" minOccurs="0" name="DValueItem"
+                    type="VariableType"/>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="otherMeasurement" type="VariableType" minOccurs="0"
+              maxOccurs="unbounded">
+              <xs:annotation>
+                <xs:documentation>The Value element captures the average, minimum and maximum size of the powder. It is optional.</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="particleProperties">
+        <xs:annotation>
+          <xs:documentation>Terminology ASTM B243 establishes qualitative definitions
+for many powder shapes. However, no standards describe a
+means of quantifying the morphology of metal powder particles.
+Morphology can be determined via light scattering and
+image analysis methods.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="particalShape" type="ParticalShapeEnumType"/>
+            <xs:element minOccurs="0" name="volumeSpecificSurface" type="VariableType"/>
+            <xs:element minOccurs="0" name="equivalentDiameter" type="VariableType"> </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="physicalProperties">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="flowability" type="VariableType" minOccurs="0">
+              <xs:annotation>
+                <xs:documentation>The "flowability" element captures the the ease with which a powder will flow under a specified set of conditions. For example, flowability can be measured according to ASTM B213, ASTM B964, and ASTM B855.
+Methods of determining the mass flow rate of powders
+using two types of flowmeters, the Hall flowmeter funnel and
+the Carney funnel, are described in Test Method B213 and
+B964, respectively. These procedures are readily applicable  Methods for using the Hall flowmeter are also described in MPIF Standard 03.
+
+Note that powder samples with a significant fraction
+of small particles or irregularly shaped particles may have
+inconsistent or greatly reduced flow rates, or both. The methods
+listed in 5.5.1 and 5.5.2 may not be suitable for these
+powders.</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="Emissivity" type="VariableType">
+              <xs:annotation>
+                <xs:documentation>??NEEDS to be renamed Emittivity. The "Emittivity" element captures the emittance of heat compared to a black body. For example, emittivity can be measured using methods described in ASTM E1933.</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="0" name="heatCapacity" type="VariableType"/>
+            <xs:element minOccurs="0" name="absorptivity" type="VariableType"/>
+            <xs:element minOccurs="0" name="thermalConductivity" type="VariableType"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="MachineSetupType">
+    <xs:sequence>
+      <xs:element name="platform" type="PlatformType">
+        <xs:annotation>
+          <xs:documentation>The "platform" element captures the name of the material the platform is made of, name of it's maker, size, thickness, flatness, surface roughness, and the temperature at which the platform was preheated to.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="atmosphere" type="AtmosphereType">
+        <xs:annotation>
+          <xs:documentation>The "atmosphere" element captures the maximum set point of oxygen gas in the chamber, name of the pure gas used, it's source, and the characteristics of the filtration process.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ProductType">
+    <xs:sequence>
+      <xs:element name="partName" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>The "partName" element captures the name of the part provided by the user.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="partID" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>The "partID" element captures the ID of the part provided by the user. This number links the part with previously defined build parameters.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="spec" type="SpecType">
+        <xs:annotation>
+          <xs:documentation>??The "spec" element captures the characteristics of the part that includes surface area, shape etc.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element maxOccurs="1" name="partDrawing" type="AMDocumentType">
+        <xs:annotation>
+          <xs:documentation>??The "partDrawing" element captures the 3D drawing of the part in a CAD software.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="unit" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>STL file format used by many powder bed fusion machines does not contain units of measurement as metadata (SI or SAE). When only STL files are provided by the purchaser, ordering information should specify the units of the component along with the electronic data file. More information about data files can be found in ISO/ASTM 52915</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="tesselatedModel" type="AMDocumentType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>This element captures a tesselated geometry from a CAD model which is typically used for a 3 D print- and to be sliced. It is optional.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="buildOrientation">
+        <xs:annotation>
+          <xs:documentation>Per ASTM 52921, part orientation as rotation around X axis and Y axis based on the part design Centroid. Unit: degree
+As per ISO 841 when the thumb of the right hand points in the positive X, Y, or Z directions, then positive rotation will be the direction from the hand to the finger tips
+</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="A" type="xs:float"/>
+            <xs:element name="B" type="xs:float"/>
+            <xs:element minOccurs="1" name="C" type="xs:float"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="buildLocation">
+        <xs:annotation>
+          <xs:documentation>Build loacation relative to Building Platform origin - located at the center of the build platform/build volume fixed on the build facing surface (ASTM 52921)</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="XPos" type="xs:float"/>
+            <xs:element name="YPos" type="xs:float"/>
+            <xs:element minOccurs="1" name="ZPos" type="xs:float"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element maxOccurs="1" minOccurs="0" name="digitalModel" type="DigitalModelType">
+        <xs:annotation>
+          <xs:documentation>??The "digitalModel" element captures a digital model of the part. It is optional.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element maxOccurs="1" minOccurs="0" name="supportFile" type="AMDocumentType">
+        <xs:annotation>
+          <xs:documentation>??The "supportFile" element captures a support file of the part. It is optional.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="sliceFile" type="AMDocumentType">
+        <xs:annotation>
+          <xs:documentation>??The "sliceFile" element captures a series of 2D drawings of the part. It is optional.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ModelType">
+    <xs:sequence> </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="SpecType">
+    <xs:sequence>
+      <xs:element minOccurs="1" name="surfaceMax" type="VariableType">
+        <xs:annotation>
+          <xs:documentation/>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="surfaceAve" type="VariableType">
+        <xs:annotation>
+          <xs:documentation/>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="surfaceMin" type="VariableType">
+        <xs:annotation>
+          <xs:documentation>The "surfaceMin" element captures the minimum surface area of the part. It is optional.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="shape" minOccurs="0" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>The "shape" element captures the shape of the part. It is optional.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="tolerances" minOccurs="0" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>The "tolerances" element captures the tolerance level of the part.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="function" minOccurs="0" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>??The "function" element refers to the use of the part.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="specDoc" type="AMDocumentType">
+        <xs:annotation>
+          <xs:documentation>The "specDoc" element captures the buildfile which is an electronic version of a document. It could be 2D drawing, sepc file, build file, stl file. Multiple specDoc can be added. It is optional.
+      </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="VerificationType"/>
+  <xs:complexType name="TestPlanType"/>
+  <xs:complexType name="ProductsType">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" name="part" type="ProductType">
+        <xs:annotation>
+          <xs:documentation>The "part" element captures the name and characteristics of a certain part of the build. It also includes 2D or 3D drawing of the part. Multiple parts can be added.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="InSituMonitorDataType">
+    <xs:sequence>
+      <xs:element name="variableName" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>The "variableName" element captures the name of the variable that is being captured in situ.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="description" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>The "description" element captures the way that the test was performed and any aditional details that need to be included.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="sensorID" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>??The "sensorID" element captures the ID of the sensor that is collecting data.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="unit" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>The "unit" element captures the unit of measurement of the sensor.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element maxOccurs="unbounded" name="trendData" type="TrendDataRecordType">
+        <xs:annotation>
+          <xs:documentation>?? The "trendData" is the data collected from the sensor.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="MeasurementType">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" name="TrendData" type="TrendDataRecordType"/>
+      <xs:element name="sensorDescription" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TrendDataRecordType">
+    <xs:sequence maxOccurs="unbounded">
+      <xs:element maxOccurs="1" name="trendedItem" type="TimeStampedValueType">
+        <xs:annotation>
+          <xs:documentation>?? The "trendeditem" is a single data point that was collected by the sensor.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="TimeStampedValueType">
+    <xs:sequence>
+      <xs:element name="timeStamp" type="xs:dateTime">
+        <xs:annotation>
+          <xs:documentation>#### Time of the test</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="value" type="xs:float">
+        <xs:annotation>
+          <xs:documentation>#### Value of the data</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="MonitorType">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" name="amMonitorDataItem" type="InSituMonitorDataType"
+        minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>??The "amMonitorDataItem" element captures the environment in which the test was performed, description of the test, sensor ID, and data from the test.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="RangeType2">
+    <xs:sequence>
+      <xs:element name="low" type="xs:unsignedInt">
+        <xs:annotation>
+          <xs:documentation>The "low" element captures the lowest temperature.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="avg" type="xs:unsignedInt">
+        <xs:annotation>
+          <xs:documentation>The "avg" element captures the average temperature.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="high" type="xs:unsignedInt">
+        <xs:annotation>
+          <xs:documentation>The "high" element captures the highest temperature.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="RangeType">
+    <xs:sequence>
+      <xs:element name="low" type="xs:float">
+        <xs:annotation>
+          <xs:documentation>The "low" element captures the lowest temperature.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="high" type="xs:float">
+        <xs:annotation>
+          <xs:documentation>The "high element" captures the maximum temperature.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="VariableType">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="name" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>The "name" element captures the name of the variable. It is optional</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="description" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The "description" element captures the description of the variable, including measurement methods, eg, ATSM b212 for apparent density measurement using Hall Flowmeter Funnel. It is optional.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="unit" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>The "unit" element captures the unit of measurement. For example, percent (%) by weight for the ingridient of the powder composition</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="value">
+        <xs:annotation>
+          <xs:documentation>The "value" element captures the number. It is a float type. Type in a number in the box.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="nominalValue" type="xs:float" minOccurs="0"/>
+            <xs:element minOccurs="0" name="average" type="xs:float"/>
+            <xs:element minOccurs="0" name="min" type="xs:float"/>
+            <xs:element minOccurs="0" name="max" type="xs:float"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ContourType">
+    <xs:sequence>
+      <xs:element name="contour" type="OnOffEnumType">
+        <xs:annotation>
+          <xs:documentation>??The "contour" element captures whether the laser beam exposes the contour in the pre-exposure or not. If yes, type in 1;if not, type 0. It is a boolean type.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="postContour" type="OnOffEnumType">
+        <xs:annotation>
+          <xs:documentation>??The "postContour" element captures whether the laser beam exposes the contour in the post-exposure or not. If yes, type in 1;if not, type 0. It is a boolean type.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="beamOffset" type="VariableType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The "beamOffset" element captures the start point for the exposure of the points from the inside of the part.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="standardPower" type="VariableType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The "laserPower" element captures the power of the laser during this part of the exposure. It is optional.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="standardSpeed" type="VariableType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The "speed" element captures the speed at which the laser moves across the part. It is optional.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="onPartSpeed" type="VariableType"/>
+      <xs:element minOccurs="0" name="onPartPower" type="VariableType"/>
+      <xs:element minOccurs="0" name="downSkinSpeed" type="VariableType"/>
+      <xs:element minOccurs="0" name="downSkinPower" type="VariableType"/>
+      <xs:element name="thickness" type="VariableType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The "thickness" element captures how far up and down below the current layer the software is looking to determine whether it is downskin or not.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Corridor" type="VariableType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The "Corridor" element captures the width relative to the nominal contour based on the thickness.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="EdgeType">
+    <xs:sequence>
+      <xs:element name="edges" type="OnOffEnumType">
+        <xs:annotation>
+          <xs:documentation>??The "edges" element captures whether the points were exposed in pre-exposure or not. It's a boolean value. Type in 1 if this process was performed and 0 otherwise.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="postEdge" type="OnOffEnumType" minOccurs="1">
+        <xs:annotation>
+          <xs:documentation>??The "postEdge" element captures whether the points were exposed in post-exposure or not. It's a boolean value. Type in 1 if this process was performed and 0 otherwise.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="edgeFactor" type="xs:unsignedInt" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The "edgeFactor" element captures the level of exposure for points starting from the outermost points on the nominal  contour to create fine features. It is an unsignedInt. Insert a positive number.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="threshold" type="xs:unsignedInt" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The "threshold" element captures the threshold value. If the distance from the actual contour to the nominal contour at a point exceeds the value threshhold x beam offset, this point is exposed with an edge factor of 1.45. It is an unsignedInt. Insert a positive number.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="minimuRadiousFactor" type="xs:float" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The "minimumRadiusFactor" element captures the level of exposure of the points as a function of the radius of the laser beam. Insert a number</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="beamOffset" type="VariableType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The "beamOffset" element captures the start point for the exposure of the points from the inside of the part.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="speed" type="VariableType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The "speed" element captures the speed at which the laser moves across the part. It is optional.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="laserPower" type="VariableType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The "laserPower" element captures the power of the laser during this part of the exposure. It is optional.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="DigitalModelType">
+    <xs:annotation>
+      <xs:documentation>
+        The DigitalModelType defines a digital design model
+        that represents information about an assembly or part.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="name" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>
+            The "Name" element is the name of the model.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="file" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>
+            The "File" element specifies the file used in the model.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="application" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>
+            The optional "Application" element is information about the
+            software application wherein the model was most recently
+            edited.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="author" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>
+            The optional "Author" element is the author who
+            created this file.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="description" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>
+            The optional "Description" element is a description of the model.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="units" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>
+            The optional "Units" element specifies the units used in the
+            model.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element default="UNKNOWN" minOccurs="0" name="GDT" type="GDTEnumType">
+        <xs:annotation>
+          <xs:documentation>
+           ?? The optional "GDT" element specifies the presence of
+            geometric dimensioning and tolerancing information in model.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="GDTEnumType">
+    <xs:annotation>
+      <xs:documentation>
+        The GDTEnumType enumerates values that describe the geometric
+        dimensioning and tolerancing information in model.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="UNKNOWN"/>
+      <xs:enumeration value="HUMANREAD"/>
+      <xs:enumeration value="MACHINEREAD"/>
+      <xs:enumeration value="ABSENT"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="SpecimenOrientationEnumType">
+    <xs:annotation>
+      <xs:documentation>
+        The type enumerates values that describe the
+        specimen orientation in build cordinate system.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="XYZ"/>
+      <xs:enumeration value="YXZ"/>
+      <xs:enumeration value="XZY"/>
+      <xs:enumeration value="YZX"/>
+      <xs:enumeration value="ZXY"/>
+      <xs:enumeration value="ZYX"/>
+      <xs:enumeration value="N/A"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="OrientationEnumType">
+    <xs:annotation>
+      <xs:documentation>
+        The type enumerates values that describe the
+        specimen orientation in build cordinate system.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="XY"/>
+      <xs:enumeration value="Z"/>
+      <xs:enumeration value="N/A"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="FileEnumType">
+    <xs:annotation>
+      <xs:documentation>
+        The FileEnumType enumerates values that describe the geometric
+        dimensioning and tolerancing information in model.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="UNKNOWN"/>
+      <xs:enumeration value="STL"/>
+      <xs:enumeration value="DOC"/>
+      <xs:enumeration value="ABSENT"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="AMDocumentType">
+    <xs:annotation>
+      <xs:documentation>        The AMDocumentType defines an electronic version of a document.
+        It could be 2D drawing, sepc file, build file.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="name" type="xs:string" minOccurs="1">
+        <xs:annotation>
+          <xs:documentation>
+            The "Name" element captures the name of the model.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="fileName" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>
+            The "File" element captures the name of the CAD file.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="software" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>
+            The optional "Application" element captures the information about the
+            software application wherein the model was most recently
+            edited.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="author" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>
+            The optional "Author" element is the author who created this
+            file.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="description" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>
+            The optional "Description" element is a description of the model or any additional information on the process used.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="CLProcessPlanType">
+    <xs:annotation>
+      <xs:documentation>Concept Laser Process plan (to be updated)</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="partNumber" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>The "partNumber" element captures the part ID of the part that was produced with the parameters selected.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="buildSetting" type="BuildSettingType">
+        <xs:annotation>
+          <xs:documentation>The "buildSetting" element captures the start height and the final height of the build, and the characteristics of pre exposure settings. </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="recoatingSetting" type="RecoaterSettingType">
+        <xs:annotation>
+          <xs:documentation>The "recoatingSetting" element captures the type of the blade used, feed charge, and blade's speed.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="atmosphere" type="AtmosphereType">
+        <xs:annotation>
+          <xs:documentation>The "atmosphere" element captures the maximum set point of oxygen gas in the chamber, name of the pure gas used, it's source, and the characteristics of the filtration process.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="platform" type="PlatformType">
+        <xs:annotation>
+          <xs:documentation>The "platform" element captures the name of the material the platform is made of, name of it's maker, size, thickness, flatness, surface roughness, and the temperature at which the platform was preheated to.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="materialSpecificSetting" type="MaterialSpecSettingType">
+        <xs:annotation>
+          <xs:documentation>The "materialSpecificSetting" element captures the settings (either advanced or default) specific to the material used.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="1" name="buildFile" type="AMDocumentType">
+        <xs:annotation>
+          <xs:documentation>The "buildFile" element captures the buildfile which is an electronic version of a document. It could be 2D drawing, sepc file, and or build file.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="EOSProcessPlanType">
+    <xs:annotation>
+      <xs:documentation>EOS process plan</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="buildSetting" type="BuildSettingType">
+        <xs:annotation>
+          <xs:documentation>The "buildSetting" element captures the start height and the final height of the build, and the characteristics of pre exposure settings. </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="recoatingSetting" type="RecoaterSettingType">
+        <xs:annotation>
+          <xs:documentation>The "recoatingSetting" element captures the type of the blade used, feed charge, and blade's speed.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="materialSpecificSetting" type="MaterialSpecSettingType">
+        <xs:annotation>
+          <xs:documentation>The "materialSpecificSetting" element captures the settings (either advanced or default) specific to the material used.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="buildFile" type="AMDocumentType">
+        <xs:annotation>
+          <xs:documentation>The "buildFile" element captures the buildfile which is an electronic version of a document. It could be 2D drawing, sepc file, and or build file.
+      </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AtmosphereType">
+    <xs:sequence>
+      <xs:element name="O2SetPointMax">
+        <xs:annotation>
+          <xs:documentation>The "O2SetPointMax" element captures the maximum set point for oxygen in the machine.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="unit" type="O2UnitEnumType">
+              <xs:annotation>
+                <xs:documentation>The "unit" element is a unit of measurement. For example, ppm and %. Choose a unit from the dropdown menu.</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="vlaue" type="xs:float">
+              <xs:annotation>
+                <xs:documentation>The "value" element refers to a number. It is a float type. Type in a number in the box.</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="purgeGas" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>The "pureGas" element is the name of the pure gas used. For example, "Argon" or "Nitrogen"</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="purgeGasSource" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>The "pureGasSource" captures the name of the source of the pure gas. For example, "Nitrogen gas generator" or "Argon tank".</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="filtration">
+        <xs:annotation>
+          <xs:documentation>The "filtration" element captures the age and pressure difference of the two filters to determine how clogged the filters are.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="ageOfFilter1" type="xs:unsignedInt">
+              <xs:annotation>
+                <xs:documentation>The "ageOfFilter1" captures the age of the first filter in hours. It is unsignedInt type. Type in a positive integer.
+8888 means N/A</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="ageOfFilter2" type="xs:unsignedInt">
+              <xs:annotation>
+                <xs:documentation>The "ageOfFilter2" captures the age of the second filter in hours. It is unsignedInt type. Type in a positive integer.
+8888 means N/A</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="pressureDifference" type="VariableType">
+              <xs:annotation>
+                <xs:documentation>The "pressureDifference" element captures the pressure difference between the two filter during the building process.</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="ambientTemperature" type="VariableType" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="BuildSettingType">
+    <xs:sequence>
+      <xs:element name="startHeight" type="xs:float">
+        <xs:annotation>
+          <xs:documentation>The "startHeight" element captures the height at which the building process started, in mm.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="finalHeight" type="xs:float">
+        <xs:annotation>
+          <xs:documentation>The "finalHeight" captures the height at which the building process stopped, in mm</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="layerThickness" type="xs:float">
+        <xs:annotation>
+          <xs:documentation>The "layerThickness" element captures the distance which the build platform is lowered prior to printing each new layer, in mm.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="DMLSSetting" type="DMLSType">
+        <xs:annotation>
+          <xs:documentation>IF DMLS is not selected, each layer in the preexposure are will be exposed twice at the selected speed.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="RecoaterSettingType">
+    <xs:sequence>
+      <xs:element name="recoaterBlade" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>The "recoaterBlade" element captures the type of recoater blade used.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="feedCharge" type="VariableType">
+        <xs:annotation>
+          <xs:documentation>The "feedCharge" elements captures the percentage at which feedbed was moved up relative to how much buildbed was lowered. It is a float type. Type in a number in the box.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="positiveXRecoaterSpeed" type="xs:float">
+        <xs:annotation>
+          <xs:documentation>The "positiveXRecoaterSpeed" element captures the speed of the recoater blade at which it moves to the positive X axis. It is a float type. Type in a number in the box.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="negativeXRrecoaterSpeed" type="xs:float">
+        <xs:annotation>
+          <xs:documentation>The "negativeXRecoaterSpeed" element captures the speed of the recoater blade at which it moves to the negative X axis. It is a float type. Type in a number in the box.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="contactFreeOutwardTravel" type="OnOffEnumType">
+        <xs:annotation>
+          <xs:documentation>The "contactFreeOutwardTravel" element captures whether the platform was lowered a little prior to movement to the right so that the recoater blade does not get damaged. It's a boolean value. Type in 1 if this process was performed and 0 otherwise.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PlatformType">
+    <xs:sequence>
+      <xs:element minOccurs="1" name="platformMaterial" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>The "platformMaterial" element captures material that makes up the platfrom.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="platformMaker" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>The "platformMaker" element captures the name of company that made the platform.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="sizeX" type="VariableType">
+        <xs:annotation>
+          <xs:documentation>The "sizeX" element captures the length of the platform in respect to the x direction (of the cordinate system that the AM machine uses).</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="sizeY" type="VariableType">
+        <xs:annotation>
+          <xs:documentation>The "sizeY" element captures the length of the platform in respect to the y direction (of the cordinate system that the AM machine uses).</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="sizeZ" type="VariableType">
+        <xs:annotation>
+          <xs:documentation>The "sizeZ" element the length of the build volume in respect to the z direction (of the cordinate system that the AM machine uses).</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="flatness" type="VariableType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The "flatness" elemnt captures a measure of how much the build platform varys from a flat plane.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="surfaceRoughness" type="VariableType">
+        <xs:annotation>
+          <xs:documentation>The "surfaceRoughness" element captures the surface texture of the platform. Refers to the smoothness or roughness of the platform surface.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="preheatedTemp" type="VariableType">
+        <xs:annotation>
+          <xs:documentation>The "preheatedTemp" element captures the temperature at which the platform was preheated to.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="MaterialSpecSettingType">
+    <xs:choice>
+      <xs:element name="advancedSettings" type="AdvancedSettingsType">
+        <xs:annotation>
+          <xs:documentation>The "advancedSettings" element captures custom settings specific for the material which includes material scaling factor, part scaling factor, beam offset, duel focus beam expander, and exposure setting.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="defaultSettings" type="AMDocumentType">
+        <xs:annotation>
+          <xs:documentation>The "defaultSettings" element captures the name of the material, software used, and a initialization parameter file.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:choice>
+  </xs:complexType>
+  <xs:simpleType name="TestEnumType">
+    <xs:annotation>
+      <xs:documentation>
+        The TopologyEnumType enumerates values that describe the
+        topology information in model.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="DIMENTIONAL"/>
+      <xs:enumeration value="SURFACE"/>
+      <xs:enumeration value="TENSIL"/>
+      <xs:enumeration value="STRESSCONTROLLEDFATIGURE"/>
+      <xs:enumeration value="STRAINCONTROLLEDFATIGUE"/>
+      <xs:enumeration value="GRAIN"/>
+      <xs:enumeration value="HARDNESS"/>
+      <xs:enumeration value="CHEMISTRY"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="SpecimenShapeEnumType">
+    <xs:annotation>
+      <xs:documentation>
+        The SpecimenShapeEnumType enumerates values that describe the
+        specimen shapes.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="PLATESTANDARD"/>
+      <xs:enumeration value="SHEETSTANDARD"/>
+      <xs:enumeration value="PLATEREDUCED"/>
+      <xs:enumeration value="ROD"/>
+      <xs:enumeration value="RECTANGLE"/>
+      <xs:enumeration value="SQUARE"/>
+      <xs:enumeration value="N/A"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="MaterialEnumType">
+    <xs:annotation>
+      <xs:documentation>
+        This is the alloy type list.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="NickeAlloy"/>
+      <xs:enumeration value="StainlessSteel"/>
+      <xs:enumeration value="TitaniumAlloy"/>
+      <xs:enumeration value="CobalAlloy"/>
+      <xs:enumeration value="AlluminiumAlloy"/>
+      <xs:enumeration value="PreciousMetalAlloy"/>
+      <xs:enumeration value="CopperAlloy"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="MaterialNameEnumType">
+    <xs:annotation>
+      <xs:documentation>
+        This is the material name list.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="IN718"/>
+      <xs:enumeration value="IN625"/>
+      <xs:enumeration value="IN713"/>
+      <xs:enumeration value="IN623"/>
+      <xs:enumeration value="Ni-HX"/>
+      <xs:enumeration value="Ni230"/>
+      <xs:enumeration value="Ni-K5"/>
+      <xs:enumeration value="Nitinol60"/>
+      <xs:enumeration value="15-5PH"/>
+      <xs:enumeration value="17-4PH"/>
+      <xs:enumeration value="SS316"/>
+      <xs:enumeration value="SS316L"/>
+      <xs:enumeration value="SS304"/>
+      <xs:enumeration value="SS410"/>
+      <xs:enumeration value="SS440"/>
+      <xs:enumeration value="SS904L"/>
+      <xs:enumeration value="SS CX"/>
+      <xs:enumeration value="AISI420"/>
+      <xs:enumeration value="AISIA2"/>
+      <xs:enumeration value="AISID2"/>
+      <xs:enumeration value="AISIS7"/>
+      <xs:enumeration value="H13"/>
+      <xs:enumeration value="Mirage300"/>
+      <xs:enumeration value="CpTi"/>
+      <xs:enumeration value="Ti48-2-2"/>
+      <xs:enumeration value="Ti6-2-4-2"/>
+      <xs:enumeration value="Ti6Al4V"/>
+      <xs:enumeration value="Ti6Al4V ELI"/>
+      <xs:enumeration value="Ti6Al6Nb7"/>
+      <xs:enumeration value="CoCrWC"/>
+      <xs:enumeration value="CoCr"/>
+      <xs:enumeration value="CoCrLC"/>
+      <xs:enumeration value="CoCrMo"/>
+      <xs:enumeration value="Co21"/>
+      <xs:enumeration value="Co276"/>
+      <xs:enumeration value="Co605"/>
+      <xs:enumeration value="AlSi10Mg"/>
+      <xs:enumeration value="AlSi7Mg"/>
+      <xs:enumeration value="AlSi12"/>
+      <xs:enumeration value="Al6061"/>
+      <xs:enumeration value="Al7059"/>
+      <xs:enumeration value="Al7075"/>
+      <xs:enumeration value="Commercially Pure Titanium"/>
+      <xs:enumeration value="18K 3N Yellow Gold"/>
+      <xs:enumeration value="18K 5N Red Gold"/>
+      <xs:enumeration value="18K White Gold"/>
+      <xs:enumeration value="Sterling Silver"/>
+      <xs:enumeration value="PtRu"/>
+      <xs:enumeration value="Others"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="MaterialAtomizationEnumType">
+    <xs:annotation>
+      <xs:documentation>
+        This is the material atomization list.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Argon Atomized"/>
+      <xs:enumeration value="Nitrogen Atomized"/>
+      <xs:enumeration value="Water Atomized"/>
+      <xs:enumeration value="Others"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="MaterialVendorEnumType">
+    <xs:annotation>
+      <xs:documentation>
+        This is the material vendor list.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Arcam"/>
+      <xs:enumeration value="ConceptLaser"/>
+      <xs:enumeration value="Carpenter"/>
+      <xs:enumeration value="EOS"/>
+      <xs:enumeration value="Optomec"/>
+      <xs:enumeration value="Renishaw"/>
+      <xs:enumeration value="Sciaky"/>
+      <xs:enumeration value="SLM Solutions"/>
+      <xs:enumeration value="3D Systems"/>
+      <xs:enumeration value="Others"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="MachineVendorEnumType">
+    <xs:annotation>
+      <xs:documentation>
+        This is the machine vendor list.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Arcam"/>
+      <xs:enumeration value="ConceptLaser"/>
+      <xs:enumeration value="Carpenter"/>
+      <xs:enumeration value="EOS"/>
+      <xs:enumeration value="Optomec"/>
+      <xs:enumeration value="Renishaw"/>
+      <xs:enumeration value="Sciaky"/>
+      <xs:enumeration value="SLM Solutions"/>
+      <xs:enumeration value="3D Systems"/>
+      <xs:enumeration value="Others"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="ParticalShapeEnumType">
+    <xs:annotation>
+      <xs:documentation>
+        This is the material atomization list.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Spherical"/>
+      <xs:enumeration value="Cylindrical"/>
+      <xs:enumeration value="Tetrathedral"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="PowderDensityUnitEnumType">
+    <xs:annotation>
+      <xs:documentation>
+        This is the powder density Unit type.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="%"/>
+      <xs:enumeration value="g/cm^3"/>
+      <xs:enumeration value="lb/in^3"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="PowderApparentDensityMeasurementMethodEnumType">
+    <xs:annotation>
+      <xs:documentation>
+        This is the powder density Unit type.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Hall"/>
+      <xs:enumeration value="Carney"/>
+      <xs:enumeration value="Scott"/>
+      <xs:enumeration value="Arnold"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="LaserWaveLengthEnumType">
+    <xs:annotation>
+      <xs:documentation>
+        This is the laser wave length type.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Pulse"/>
+      <xs:enumeration value="Continuous"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="O2UnitEnumType">
+    <xs:annotation>
+      <xs:documentation>
+        This is the laser wave length type.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="ppm"/>
+      <xs:enumeration value="%"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="OnOffEnumType">
+    <xs:annotation>
+      <xs:documentation>
+        This is the build On/Off setting enumeration type.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="ON"/>
+      <xs:enumeration value="OFF"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="TestReportType">
+    <xs:annotation>
+      <xs:documentation>
+        The TestReportType defines the type of a test report.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:choice maxOccurs="1" minOccurs="1">
+      <xs:element name="tensil" type="TensileType">
+        <xs:annotation>
+          <xs:documentation>?? The "tensil" element captures a fundamental materials science test in which a sample is subjected to a controlled tension until failure.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="stressControlledFatigue" type="StressControlledFatigueType">
+        <xs:annotation>
+          <xs:documentation>The "stressControlledFatigue" element captures the progressive and localised structural damage that occurs when a material is subjected to cyclic loading under a controlled stress. </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="strainControlledFatigue" type="StrainControlledFatigueType">
+        <xs:annotation>
+          <xs:documentation>The "strainControlledFatigue" element captures the low-cycle fatigue (LCF) testing where specimens are cycled to strain levels beyond the elastic limit. These tests are frequently conducted in strain-control using an extensometer attached to the specimen. </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="dimensional" type="DimensionalType">
+        <xs:annotation>
+          <xs:documentation>The "dimensional" element captures the geometric characteristics of parts and products to assure their compliance with design specifications. Dimensional inspection verifies the accuracy of product features that can affect reliability and functionality, and can be a critical step following production.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="1" name="chemistry">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="measureMethods" type="xs:string">
+              <xs:annotation>
+                <xs:documentation>ASTM F3049 Power Chemical Composition related standards:  
+Test Method E1447 describes the procedure for
+determining the hydrogen content in solid specimens of titanium and titanium alloys by using the inert gas fusion
+technique combined with measuring the water created by
+passing the hydrogen released through the inert gas fusion over heated copper oxide in an infrared cell.
+Test Method E1569 describes using inert gas fusion
+for determining the oxygen content in tantalum powder.
+Test Method E1941 describes the procedure using
+combustion analysis to determine carbon content in refractory
+and reactive metals.
+Test Method E2371 describes the procedure using
+atomic emission plasma spectrometry to determine the content
+of elements other than oxygen, nitrogen, hydrogen and carbon
+in titanium and titanium alloys.
+Test Method E2792 outlines the procedure for using
+inert gas fusion to determine the hydrogen content in solid
+aluminum and aluminum alloy specimens.</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+            <xs:element maxOccurs="unbounded" name="Ingredient" type="VariableType">
+              <xs:annotation>
+                <xs:documentation>The "Ingredient" element captures the name and percentage of each element in the material. For example, EOS Titanium Ti64 would have 8 "Ingredient" elements. The "Ingredient" element for Aluminum would have the name "Aluminum", the unit "Percentage", and the value "6.75".</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="hardness" type="VariableType"/>
+      <xs:element name="grain">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="direction" type="OrientationEnumType"/>
+            <xs:element name="grainSize" type="VariableType"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:choice>
+  </xs:complexType>
+  <xs:complexType name="DMLSType">
+    <xs:sequence>
+      <xs:element name="DMLS" type="OnOffEnumType">
+        <xs:annotation>
+          <xs:documentation>DMLS is swtched on</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="DMLSRange" type="xs:float">
+        <xs:annotation>
+          <xs:documentation>Thickness of the area within which building is performed with th eexposure speed reduced in accordance with DMLS rules.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="preExposure" type="OnOffEnumType">
+        <xs:annotation>
+          <xs:documentation>The "On" element captures whether the laser was on or not. If on, the selected area is exposed at high speed and then at DMLS speed. If yes, type 1 and if no, type 0. It's a boolean value. </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="preExposureRange" type="xs:float">
+        <xs:annotation>
+          <xs:documentation>The "Range" element captures the thickness of the area within which exposure is first performed at the selected speed then DMLS speed. It is a float type. Type in a number in the box.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AdvancedSettingsType">
+    <xs:sequence>
+      <xs:element name="materialScalingFactor">
+        <xs:annotation>
+          <xs:documentation>The "materialScalingFactor" element captures how much bigger or smaller the powder needed to be than the nominal value.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="X" type="xs:float">
+              <xs:annotation>
+                <xs:documentation>The "X" element captures the material dependent scaling values for all parts in X direction</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="Y" type="xs:float">
+              <xs:annotation>
+                <xs:documentation>The "Y" element captures the material dependent scaling values for all parts in Y direction.</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+            <xs:element minOccurs="1" name="Z0" type="xs:float">
+              <xs:annotation>
+                <xs:documentation>The "Z0" element captures the material dependent scaling values applicable to all parts at job height Z = 0 mm</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="Z200" type="xs:float">
+              <xs:annotation>
+                <xs:documentation>The "Z200" element captures the material dependent scaling values applicable to all parts at job height Z = 7.87 in.</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="partScalingFactor">
+        <xs:annotation>
+          <xs:documentation>The "partScalingFactor" element captures how much bigger or smaller the part needed to be than the nominal value.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="X" type="xs:float">
+              <xs:annotation>
+                <xs:documentation>The "X" element captures the part dependent scaling values for all parts in X direction.</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="Y" type="xs:float">
+              <xs:annotation>
+                <xs:documentation>The "Y" element captures the part dependent scaling values for all parts in Y direction.</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="beamOffset" type="VariableType">
+        <xs:annotation>
+          <xs:documentation>!!! To be confirmed and defined</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element default="Layer" name="duelFocusBeamExpander" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>The "duelFocusBeamExpander" element captures how much the optics were moved by the machine between contour and hatch in the core.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="exposureSetting" type="ExposureType">
+        <xs:annotation>
+          <xs:documentation>??The "exposureSetting" element captures the settings of the machine during the exposure process.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="beamSpotSize" type="VariableType"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="DefaultSettingsType">
+    <xs:sequence>
+      <xs:element name="software" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>The "software" element captures the name of the software used for controling the AM machine during the build.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="jobFilename" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>The "jobFilename" element captures the file name of the file that contains the settings used for the print job.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PartMechanicalPropertiesType">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="temp" type="VariableType"/>
+      <xs:element minOccurs="0" name="tensilProperty" type="TensileType"/>
+      <xs:element minOccurs="0" name="hardness" type="VariableType"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PartThermalPropertiesType">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="maxOperatingTemp" type="VariableType">
+        <xs:annotation>
+          <xs:documentation>Maximum operating temperature for parts under load</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="oxiResistanceTemp" type="VariableType">
+        <xs:annotation>
+          <xs:documentation>Oxidation resistance temperature</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PartDimPropertiesType">
+    <xs:annotation>
+      <xs:documentation>For vendor provided general process data for as built parts, with accuracy, min wall thickness and surface roughness</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" name="smallPartAccuracy" type="VariableType"/>
+      <xs:element minOccurs="0" name="largePartAccuracy" type="VariableType"/>
+      <xs:element minOccurs="0" name="minWallThickness" type="VariableType"/>
+      <xs:element minOccurs="0" name="surfaceRoughnessAfterShotPeening" type="VariableType"/>
+      <xs:element minOccurs="0" name="surfaceRoughnessAfterPolishing" type="VariableType"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="SRDataType">
+    <xs:sequence>
+      <xs:element maxOccurs="1" minOccurs="0" name="SurfaceMax" type="xs:decimal"/>
+      <xs:element maxOccurs="1" minOccurs="0" name="SurfaceAve" type="xs:decimal"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ExposureType">
+    <xs:sequence>
+      <xs:element name="preExposureType" type="PrePostExposureType">
+        <xs:annotation>
+          <xs:documentation>??The "preExposureType" element captures the settings for the machine before getting exposed to the laser. It includes first contour, second contour and edges.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="skinExposure" type="SkinExposureType">
+        <xs:annotation>
+          <xs:documentation>The "skinExposure" element captures the values for the calculation of skin for a part and define exposure types for its exposure.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="coreExposure" type="CoreExposureType">
+        <xs:annotation>
+          <xs:documentation>The "coreExposure" element captures the values for the calculation of core for a part and define exposure types for its exposure.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="postExposure" type="PrePostExposureType">
+        <xs:annotation>
+          <xs:documentation>??The "postExposure" captures the characteristics after it was exposed by the laser. </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="skinThicknessXY" type="VariableType">
+        <xs:annotation>
+          <xs:documentation>The "skinThicknessXY" element captures the thickness( Outer boundary layer in X/Y direction) at which the skin is exposed using the selected exposure type.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="skinThicknessZ" type="VariableType">
+        <xs:annotation>
+          <xs:documentation>The "skinThicknessZ" element captures the thickness (outer boundary layer in Z direction) at which the skin is exposed using the selected exposure type.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element default="ON" name="skinOrCoreSkinThicknessXY" type="OnOffEnumType">
+        <xs:annotation>
+          <xs:documentation>The "skinOrCoreSkinThicknessXY" captures whether there were any exposure near the edge or not. Type in 1 if it did and type in 0 if there was no exposure near the edge. It's a boolean value.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="baseRadius" type="VariableType">
+        <xs:annotation>
+          <xs:documentation>The "baseRadius" element captures the radius that is added to the outer most contour of the part to obtain better adhesion to the base plate.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="coreOpenToPlatform" type="OnOffEnumType">
+        <xs:annotation>
+          <xs:documentation>The "coreOpenToPlatform" element means that a skin is not exposed on the underside of the part. It's a boolean value asking whether it was selected or not. If it was selected, choose ON 1; if not selected, choose OFF.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="SLIHatchSetting">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="SLIHatch" type="OnOffEnumType"/>
+            <xs:element minOccurs="0" name="speed" type="VariableType"/>
+            <xs:element minOccurs="0" name="power" type="VariableType"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="CoreExposureType">
+    <xs:sequence>
+      <xs:element name="chess" type="ChessType">
+        <xs:annotation>
+          <xs:documentation>The "chess" element captures the parameters using which a structure comprising squares and gaps is generated within the part.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="skipLayer" type="SkippedLayerType">
+        <xs:annotation>
+          <xs:documentation>The "skipLayer" element captures how many layers of the hatching are skipped before exposure is performed again.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PrePostExposureType">
+    <xs:sequence>
+      <xs:element name="firstContour" type="ContourType">
+        <xs:annotation>
+          <xs:documentation>??The "firstContour" element captures the characteristics of the first pass of the exposure/laser.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="secondContour" type="ContourType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>??The "secondContour" element captures the characteristics of the second pass of the exposure/laser.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="edges" type="EdgeType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The "edges" element captures the parameters for the exposure of points and thin areas of the parts. Important for creating fine features since beam is larger than a point or thin areas.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="SkinExposureType">
+    <xs:sequence>
+      <xs:element name="stripes" type="StripeType">
+        <xs:annotation>
+          <xs:documentation>The "strpes" element captures the parameters with which the part is exposed in stripes.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="upDown" type="UpDownType">
+        <xs:annotation>
+          <xs:documentation>The "upDown" element captures the parameters for the exposure of areas that bound loose metal powder above or below.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="skipLayer" type="SkippedLayerType">
+        <xs:annotation>
+          <xs:documentation>The "skipLayer" element captures how many layers of the hatching are skipped before exposure is performed again.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ChessType">
+    <xs:choice>
+      <xs:element name="noExposure" type="OnOffEnumType">
+        <xs:annotation>
+          <xs:documentation>?? The "noExposure" element captures Whether it was exposed in this pattern or not. If it was, type in OFF. Else type in ON. </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="exposure" type="ChessExposureType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The "exposure" element captures the parameters for the chess pattern.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:choice>
+  </xs:complexType>
+  <xs:complexType name="SkippedLayerType">
+    <xs:sequence>
+      <xs:element name="skippedLayers" type="VariableType">
+        <xs:annotation>
+          <xs:documentation>?? The "skippedLayer" element captures the number of layers skipped.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="offsetlayers" type="VariableType">
+        <xs:annotation>
+          <xs:documentation>The "offsetlayers" element captures the number of what layers should be exposed. (eg. layers that are multiple of 3 were skipped)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="exposeFirstLayer" type="OnOffEnumType">
+        <xs:annotation>
+          <xs:documentation>The "exposeFirstLayer" element captures whether the first layer was exposed after the start of the building process or not. It's a boolean value. Type in 1 if this process was performed and 0 otherwise.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="StripeType">
+    <xs:choice>
+      <xs:element name="noExposure" type="OnOffEnumType">
+        <xs:annotation>
+          <xs:documentation>The "noExposure" element captures whether it was exposed in this pattern or not. It's a boolean value. Type in 1 if this process was performed and 0 otherwise.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="exposure" type="StripeExposureType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The "exposure" element captures whether it was exposed in this pattern, it captures the parameters for the stripes pattern.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:choice>
+  </xs:complexType>
+  <xs:complexType name="UpDownType">
+    <xs:choice>
+      <xs:element name="noExposure" type="OnOffEnumType">
+        <xs:annotation>
+          <xs:documentation>THIS SHOULD BE REMOVED!!!! The "noExposure" element captures whether it was exposed in this pattern or not. It's a boolean value. Type in 1 if this process was performed and 0 otherwise.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="exposure" type="UpDownExposureType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The "exposure" element captures the parameters for the stripes pattern. </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:choice>
+  </xs:complexType>
+  <xs:complexType name="EdgeExposureType">
+    <xs:sequence>
+      <xs:element name="BeamOffset" type="VariableType"/>
+      <xs:element name="Power" type="VariableType"/>
+      <xs:element name="Speed" type="VariableType"/>
+      <xs:choice>
+        <xs:element name="EdgeFactor" type="EdgeFactorType"> </xs:element>
+        <xs:element name="MinimuRadiusFactor" type="VariableType"/>
+      </xs:choice>
+      <xs:element name="Edge" type="xs:boolean"/>
+      <xs:element name="PostEdge" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ChessExposureType">
+    <xs:sequence>
+      <xs:element name="squareDistance" type="VariableType">
+        <xs:annotation>
+          <xs:documentation>The "squareDistance" element captures the distance between the hatch lines within the squares.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="squareSpeed" type="VariableType">
+        <xs:annotation>
+          <xs:documentation>The "squareSpeed" element captures the speed of the laser in the squares.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="squarePower" type="VariableType">
+        <xs:annotation>
+          <xs:documentation>The "squarePower" element captures the laser power in the squares.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="squareWidth" type="VariableType">
+        <xs:annotation>
+          <xs:documentation>The "squareWidth" element captures the dimension of the squares.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="gapDistance" type="VariableType">
+        <xs:annotation>
+          <xs:documentation>The "gapDistance" element captures the distance between the hatch lines within the squares.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="gapSpeed" type="VariableType">
+        <xs:annotation>
+          <xs:documentation>The "gapSpeed" element captures the speed of the laser in the gaps.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="gapPower" type="VariableType">
+        <xs:annotation>
+          <xs:documentation>The "gapPower" element captures the laser power in the gaps.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="gapWidth" type="VariableType">
+        <xs:annotation>
+          <xs:documentation>The "gapWidth" element captures the width of the gaps between the squares.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="overlap" type="VariableType">
+        <xs:annotation>
+          <xs:documentation>The "overlap" element captures the overlapping of the squares with the gaps. </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="beamOffset" type="VariableType">
+        <xs:annotation>
+          <xs:documentation>The "beamOffset" element captures the start point for the exposure of the points from the inside of the part.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="hatchingX" type="OnOffEnumType">
+        <xs:annotation>
+          <xs:documentation>The "hatchingX" element captures whether there was hatching in the X direction or not. It's a boolean value. Type in 1 if this process was performed and 0 otherwise.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="hatchingY" type="OnOffEnumType">
+        <xs:annotation>
+          <xs:documentation>The "hatchingY" element captures whether there was hatching in the Y direction or not. It's a boolean value. Type in 1 if this process was performed and 0 otherwise.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="alternating" type="OnOffEnumType">
+        <xs:annotation>
+          <xs:documentation>The "alternating" element captures whether it changed the direction of the exposure from layer to layer or not. It's a boolean value. Type in 1 if this process was performed and 0 otherwise.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="rotated" type="OnOffEnumType">
+        <xs:annotation>
+          <xs:documentation>The "rotated" element captures whether the angle between two layers changed or not. If it did, type in 1. Else type in 0. It's a boolean value.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="rotatedAngle" type="VariableType">
+        <xs:annotation>
+          <xs:documentation>The "rotatedAngle" element captures the rotation angle.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="skywriting" type="OnOffEnumType">
+        <xs:annotation>
+          <xs:documentation>The "skywriting" element captures whether this process was selected in the software or not. During skywriting, the acceleration phase and the retardation phase for the laser focus are outside the exposure area. The laser is switched off during this phase. It's a boolean value. Type in 1 if this process was performed and 0 otherwise.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Offset" type="OnOffEnumType">
+        <xs:annotation>
+          <xs:documentation>The "Offset" element means that, it offsets the stripes in each layer by one half of the stripe width. It's a boolean value that asks if it was selected or not. It's a boolean value. Type in 1 if this process was performed and 0 otherwise.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ContourExposureType">
+    <xs:sequence>
+      <xs:element name="Standard">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Speed" type="VariableType"/>
+            <xs:element name="LaserPower" type="VariableType"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="OnPart">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Speed" type="VariableType"/>
+            <xs:element name="LaserPower" type="VariableType"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Downskin">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Speed" type="VariableType"/>
+            <xs:element name="LaserPower" type="VariableType"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Contour" type="xs:boolean"/>
+      <xs:element name="PostContour" type="xs:boolean"/>
+      <xs:element name="Thickness" type="VariableType"/>
+      <xs:element name="BeamOffset" type="VariableType"/>
+      <xs:element name="Corridor" type="VariableType"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="StripeExposureType">
+    <xs:sequence>
+      <xs:element name="hatchDistance" type="VariableType">
+        <xs:annotation>
+          <xs:documentation>The "distance" element captures the distance between the hatch lines within stripes.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="speed" type="VariableType">
+        <xs:annotation>
+          <xs:documentation>The "speed" element captures the exposure speed for hatching the stripes.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="laserPower" type="VariableType">
+        <xs:annotation>
+          <xs:documentation>The "laserPower" element captures laser power for hatching the stripes.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="beamOffset" type="VariableType">
+        <xs:annotation>
+          <xs:documentation>The "beamOffset" element captures the start point for the exposure of the points from the inside of the part.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="stripWidth" type="VariableType">
+        <xs:annotation>
+          <xs:documentation>The "stripWidth" element captures the width of the stripes.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="stripesOverlap" type="VariableType" form="qualified">
+        <xs:annotation>
+          <xs:documentation>The "strpesOverlap" element captures the width of the overlap between two stripes.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="skyWriting" type="OnOffEnumType">
+        <xs:annotation>
+          <xs:documentation>The "skywriting" element captures whether this process was selected in the software or not. During skywriting, the acceleration phase and the retardation phase for the laser focus are outside the exposure area. The laser is switched off during this phase. If the process was selected, type 1. Otherwise type 0.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="offset" type="OnOffEnumType">
+        <xs:annotation>
+          <xs:documentation>The "offset" element means that, it offsets the stripes in each layer by one half of the stripe width. It's a boolean value. Type in 1 if this process was performed and 0 otherwise.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="hatchingX" type="OnOffEnumType">
+        <xs:annotation>
+          <xs:documentation>The "hatchingX" element captures whether hatching in X direction took place or not. It's a boolean value. Type in 1 if this process was performed and 0 otherwise.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="hatchingY" type="OnOffEnumType">
+        <xs:annotation>
+          <xs:documentation>The "hatchingY" element captures whether hatching in Y direction took place or not. It's a boolean value. Type in 1 if this process was performed and 0 otherwise.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="alternating" type="OnOffEnumType">
+        <xs:annotation>
+          <xs:documentation>The "alternating" element captures whether the direction of the exposure changed from layer to layer or not. It's a boolean value. Type in 1 if this process was performed and 0 otherwise.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="rotated" type="OnOffEnumType">
+        <xs:annotation>
+          <xs:documentation>The "rotated" element captures ewhether the angle between two layers changed or not. It's a boolean value. Type in 1 if this process was performed and 0 otherwise.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="rotatedAngle" type="VariableType">
+        <xs:annotation>
+          <xs:documentation>The "rotatedAngle" element captures the rotation angle between two layers.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="UpDownExposureType">
+    <xs:sequence>
+      <xs:element name="distanceUp" type="VariableType">
+        <xs:annotation>
+          <xs:documentation>The "distanceUp" element captures the distance between hatchlines in the UpSkin.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="distancedown" type="VariableType">
+        <xs:annotation>
+          <xs:documentation>The "distanceDown" element captures the distance between hatchlines in the DownSkin.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="speedUp" type="VariableType">
+        <xs:annotation>
+          <xs:documentation>The "speedUp" element captures the laser speed in the upskin.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="speedDown" type="VariableType">
+        <xs:annotation>
+          <xs:documentation>The "speedDown" element captures the laser speed in the downskin.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="powerUp" type="VariableType">
+        <xs:annotation>
+          <xs:documentation>The "powerUp" element captures the power of the laser in the upskin.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="powerDown" type="VariableType">
+        <xs:annotation>
+          <xs:documentation>The "powerDown" element captures the power of the laser in the downskin.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="thicknessUp" type="VariableType">
+        <xs:annotation>
+          <xs:documentation>The "thicknessUp" element captures the thickness of the UpSkin areas.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="thicknessDown" type="VariableType">
+        <xs:annotation>
+          <xs:documentation>The "thicknessDown" element captures how thick the DownSkin areas are.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="overlapWithInskin" type="VariableType">
+        <xs:annotation>
+          <xs:documentation>The "overLapWithInskin" element captures the overlapping of Upskin/DownSkin with Inskin.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="minLength" type="VariableType">
+        <xs:annotation>
+          <xs:documentation>The "minLength" element captures the minimum length of the Upskin/Downskin hatch lines.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="XUp" type="OnOffEnumType">
+        <xs:annotation>
+          <xs:documentation>The "positiveX" element captures whether there hatching in positive X direction or not. It's a boolean value. Type in 1 if this process was performed and 0 otherwise.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="XDown" type="OnOffEnumType">
+        <xs:annotation>
+          <xs:documentation>The "negativeX" element captures whether there hatching in the negative X direction or not. It's a boolean value. Type in 1 if this process was performed and 0 otherwise.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="YUp" type="OnOffEnumType">
+        <xs:annotation>
+          <xs:documentation>The "YUp" element captures whether there was hatching in the positive Y direction. It's a boolean value. Type in 1 if this process was performed and 0 otherwise.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="YDown" type="OnOffEnumType">
+        <xs:annotation>
+          <xs:documentation>The "YDown" element captures whether there was hatching in the negative Y direction. It's a boolean value. Type in 1 if this process was performed and 0 otherwise.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="alternateUp" type="OnOffEnumType">
+        <xs:annotation>
+          <xs:documentation>The "alternateUp" element captures whether there were changes in the direction of the exposure from layer to layer in UpSkin. It's a boolean value. Type in 1 if this process was performed and 0 otherwise.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="alternateDown" type="OnOffEnumType">
+        <xs:annotation>
+          <xs:documentation>The "alternateDown" element captures whether there were changes in the direction of the exposure from layer to layer in DownSkin. It's a boolean value. Type in 1 if there were changes and 0 otherwise.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="skyWriting" type="OnOffEnumType">
+        <xs:annotation>
+          <xs:documentation>The "skywriting" element captures whether this process was selected in the software or not. During skywriting, the acceleration phase and the retardation phase for the laser focus are outside the exposure area. The laser is switched off during this phase. It's a boolean value. Type in 1 if this process was performed and 0 otherwise.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="EdgeFactorType">
+    <xs:sequence>
+      <xs:element name="EdgeFactor" type="VariableType"/>
+      <xs:element name="Threshold" type="VariableType"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:simpleType name="AMProcessCateEnumType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="VAT-P"/>
+      <xs:enumeration value="BJ"/>
+      <xs:enumeration value="DED"/>
+      <xs:enumeration value="LPBF"/>
+      <xs:enumeration value="EBEAM"/>
+      <xs:enumeration value="ME"/>
+      <xs:enumeration value="MJ"/>
+      <xs:enumeration value="SL"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="StatisticalValueType">
+    <xs:sequence>
+      <xs:element name="description" type="xs:string"/>
+      <xs:element name="Unit" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>The "Unit" element is the unit of measurement. For example, mm (milimeter)</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Average" type="xs:float">
+        <xs:annotation>
+          <xs:documentation>The "Average" element is the average value of the test. It is a float type. Type in a number in the box.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Max" type="xs:float">
+        <xs:annotation>
+          <xs:documentation>The "Max" element is the maximum value of the test. It is a float type. Type in a number in the box.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Min" type="xs:float">
+        <xs:annotation>
+          <xs:documentation>The "Min" element is the minimum value of the test. It is a float type. Type in a number in the box.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="EquipmentType">
+    <xs:sequence>
+      <xs:element name="machineID" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>The "machineID" element is the ID of the machine provided by the user of the machine.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="machinName" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The "machineName" element captures the name of the machine provided by the vendor.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Manufacturer" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The "Manufacturer" element captures the name of the manufacturer of the machine.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ModelName" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The "ModelName" element captures the model name of the machine provided by the vendor.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ManufacturingDate" type="xs:date" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The "ManufacturingDate" element captures the date when the machine was manufactured. It is a date type (YYYY-MM-DD).</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="CalibrationHistory" type="EquipCalibrationHistoryType" maxOccurs="unbounded"
+        minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The "CalibrationHistory" element captures the different times calibration of the machine needed to be fixed. It captures the characteristics of these changes inside calibrationDataItem.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="MaintenanceHistory" type="EquipMaintainanceHistoryType"
+        maxOccurs="unbounded" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The "MaintainanceHistory" element captures the history of different times the machine needed to be repaired or upgraded. It captures the characteristics of these changes inside MaintainanceItem.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="DensityVariableType">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="name" type="xs:string"/>
+      <xs:element name="description" type="xs:string" minOccurs="0"/>
+      <xs:element name="unit" type="PowderDensityUnitEnumType"/>
+      <xs:element name="value" type="xs:float"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="BuildHeaderType">
+    <xs:annotation>
+      <xs:documentation>
+        The InternalHeaderType defines information about the creation of
+        the file containing the CAD model and global parameters of the
+        model.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="buildID" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>The "buildID" element captures the ID of the build provided by the builder.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="description" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Brief description of the build, e.g., material, machine and environment.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="buildServiceProvider" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>The "buildServiceProvider" element captures the name of the institution who performed the build. For example, NIST.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="location" type="xs:string" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The "location" element captures the name of the location where the build took place.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="customerName" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>The "customerName" element captures the name of the customer for whom the build was performed. It is optional to provide customerName.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="materialName" type="MaterialNameEnumType">
+        <xs:annotation>
+          <xs:documentation>The "materialName" element captures the vendor's specific name for the material. For example, EOS Titanium Ti64 would have a materialName of "EOS Titanium Ti64". </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="materialVendor" type="MaterialVendorEnumType">
+        <xs:annotation>
+          <xs:documentation>The "materialVendor" element captures the name of the vendor of the material. For example, EOS GmbH manufactures EOS Titanium Ti64, so the materialVendor would be "EOS GmbH". </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="vendorMaterialID" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>The "materialID" element captures the vendor supplied ID for the material. For example, EOS Titanium Ti64 would have a materialID of "9011-0014".</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="machineVendor" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>The "machineVendor" element captures the name of the company that makes the AM machine. For example, an EOS M270 would have a "machineVendor" of "EOS GmbH".</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="machineModel" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>The "modelName" element captures the model name of the machine. For example, an EOS M270 would have a "modelName" of "M270".</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="machineSerialNumber" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>The "machineSerialNumber" element captures the owner's ID for the macine. For example, a machine shop that has one AM machine would have a "machineID" of "1".</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="startTime" type="xs:dateTime">
+        <xs:annotation>
+          <xs:documentation>The "startTime" element captures the date when the build first started. Put the date in a datetime format (yyyy-mm-dd hh:mm:ss).</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="interruption" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>The "interruptions" element captures the time when build was paused for any planned or unplanned event. A build can have multiple interruptions.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence maxOccurs="unbounded">
+            <xs:element name="beginTime" type="xs:dateTime">
+              <xs:annotation>
+                <xs:documentation>The "beginTime" element captures the time when the build started after it was paused. Type the time in a datetime format (yyyy-mm-dd hh:mm:ss).</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="endTime" type="xs:dateTime">
+              <xs:annotation>
+                <xs:documentation>The "endTime" element captures the time when the build was paused for any planned or unplanned event. Type the time in a datetime format (yyyy-mm-dd hh:mm:ss).</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="reasonOfInterruption" type="xs:string">
+              <xs:annotation>
+                <xs:documentation>The "reasonOfInterruption" element captures the reason there was an interruption. Also include if the interruption was planned or unplanned.</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="layerNumber" type="xs:unsignedInt">
+              <xs:annotation>
+                <xs:documentation>The "layerNumber" element captures the number of the layer that that the error or interuption happened on. It is an unsignedInt. Type in an positive integer in the box.</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="finishTime" type="xs:dateTime">
+        <xs:annotation>
+          <xs:documentation>The "finishTime" element captures the date when the build was finished. Type the date in datetime format (yyyy-mm-dd hh:mm:ss).</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element maxOccurs="unbounded" name="operators" type="xs:string"/>
+      <xs:element minOccurs="0" name="supportMaterialName" type="xs:string"/>
+      <xs:element minOccurs="0" name="supportMaterialVendor" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="VendorMaterialType">
+    <xs:sequence>
+      <xs:element name="generalInfo">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="materialVendor" type="MaterialVendorEnumType">
+              <xs:annotation>
+                <xs:documentation>The "materialVendor" element captures the name of the vendor of the material. For example, EOS GmbH manufactures EOS Titanium Ti64, so the materialVendor would be "EOS GmbH". </xs:documentation>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="materialType" type="MaterialEnumType">
+              <xs:annotation>
+                <xs:documentation>The "MaterialEnumType" captures the type of the material. For example, EOS Titanium Ti64 is primarily composed of titanium, so it would have a MaterialEnumType of "TitaniumAlloy".</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="materialName" type="MaterialNameEnumType">
+              <xs:annotation>
+                <xs:documentation>The "materialName" element captures the nonproprietary name of the material. For example, EOS Titanium Ti64 would have a materialName of "Ti6Al4V".</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="vendorMaterialName" type="xs:string">
+              <xs:annotation>
+                <xs:documentation>The "vendorMaterialName" element captures the vendor's specific name for the material. For example, EOS Titanium Ti64 would have a vendorMaterialName of "EOS Titanium Ti64". </xs:documentation>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="vendorMaterialID" type="xs:string">
+              <xs:annotation>
+                <xs:documentation>The "materialID" element captures the vendor supplied ID for the material. For example, EOS Titanium Ti64 would have a materialID of "9011-0014".</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="vendorProvidedPowderMaterialProperties" type="PowderMaterialPropertiesType">
+        <xs:annotation>
+          <xs:documentation>The "vendorMaterialProperties" element captures the characteristics of the material using information provided by the vendor.
+Refer to ASTM F3049</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element minOccurs="0" name="generalProcessData">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="dimensionalCapability" type="PartDimPropertiesType"/>
+            <xs:element minOccurs="0" name="volumeRate" type="VariableType"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element minOccurs="0" name="mechanicalPropertiesOfParts"
+        type="PartMechanicalPropertiesType"/>
+      <xs:element minOccurs="0" name="thermalPropertiesOfParts" type="PartThermalPropertiesType"/>
+      <xs:element name="conformance" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>The "conformance" element captures the standard that the material chemical composition adheres to. For example, EOS Titanium Ti64 would have a "conformance" of "ISO 5832-3, ASTM F1472, ASTM B348".</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="powderManufacturingMethod" type="MaterialAtomizationEnumType">
+        <xs:annotation>
+          <xs:documentation>The "atomization" element captures the type of atomization used to create the powder. For example, EOS Titanium Ti64 has a atomization value of "Argon".</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AMmachineType">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>The "name" element captures the owner's ID/name for the macine. For example, a machine shop that has one AM machine would have a "machineID" of "1".</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="description" type="xs:string"/>
+      <xs:element name="owner" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>The "owner" element captures the name of the company that owns the machine.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="manufacturer" type="MachineVendorEnumType">
+        <xs:annotation>
+          <xs:documentation>The "manufacturer" element captures the name of the company that makes the AM machine. For example, an EOS M270 would have a "vendorName" of "EOS GmbH".</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="model" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>The "model" element captures the model name of the machine. For example, an EOS M270 would have a "modelName" of "M270".
+
+EOS M 100
+EOSINT M 270
+EOSINT M 280
+EOSINT M 290
+EOS M 400
+EOS M 400-4
+PRECIOUS M 080
+</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="serialNumber" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>The "systemSerialNumber" element captures the serial number of the specific AM machine.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="dateOfMade" type="xs:date">
+        <xs:annotation>
+          <xs:documentation>THe "dateOfMade" element captures the date that the AM machine was manufactured. For example, if a machine was maufactured on May 23rd 2015 it would have a "dateOfMade" of "2015-05-23".</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="location" type="xs:string"/>
+      <xs:element name="processCategory" type="AMProcessCateEnumType">
+        <xs:annotation>
+          <xs:documentation>The "ProcessCategory" element captures the type of additive manufacturing process used. For example, an EOS M270 uses powder bed fusion, so it would have a "ProcessCategory" of "PBF".</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="numOfLasers" type="xs:unsignedInt"/>
+      <xs:element minOccurs="1" name="laserSystem" type="LaserSystemType" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>The "laserSystem" element captures properties of the laser assembly that is installed in the AM machine. There are fields for laser power, wavelength, type, installation date, and more. </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="softwareSystem">
+        <xs:annotation>
+          <xs:documentation>The "softwareSystem" element captures the software name and version number used with machine. For example, a EOS M270 might use EOSPRINT, so it would have a "softwareSystem" of "EOSPRINT 1.0.3".</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="unbounded" name="updateHistory">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="operatorName" type="xs:string"/>
+                  <xs:element name="updatedVersion" type="xs:string"/>
+                  <xs:element name="dateOfUpdate" type="xs:date"/>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="preheatTempMax" type="VariableType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The "preheatTempMax" element captures the max preheat temperature that the machine can reach. For example, the EOS M270 can preheat up to 80 degrees celsius, so it would have a "value" of "80" with a "unit" of "celsius".</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="scanSpeedMax" type="VariableType">
+        <xs:annotation>
+          <xs:documentation>The "scanSpeedMax" element captures the max scanspeed of the machine.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="calibrationHistory" type="EquipCalibrationHistoryType">
+        <xs:annotation>
+          <xs:documentation>The "calibrationHistory" element captures the history of the calibration done to a certain machine.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="maintenanceHistory" type="EquipMaintainanceHistoryType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The "maintenanceHistory" element captures the history of the maintenance done to a certain machine.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="noRecoatBlader" type="xs:short">
+        <xs:annotation>
+          <xs:documentation>The "noRecoatBlader" element captures the number of recoater blades used by the machine. For example, if a machine had 3 recoater blades that could be switched in, it would have a "noRecoatBlader" of "3".</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="compatibleRecoaterBlade"
+        type="xs:string">
+        <xs:annotation>
+          <xs:documentation>The "compatibleRecoaterBlade" element captures the type(s) of recoater blade that is (are) compatible with the machine.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="compatibleMaterial">
+        <xs:annotation>
+          <xs:documentation>The "compatibleMaterial" element captures the vendor, name, and ID of a material that is compatible with a specific recoater blade.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="materialVendor" type="MaterialVendorEnumType">
+              <xs:annotation>
+                <xs:documentation>The "materialVendor" element captures the name of the vendor of the material. For example, EOS GmbH manufactures EOS Titanium Ti64, so the materialVendor would be "EOS GmbH". </xs:documentation>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="materialName" type="MaterialNameEnumType">
+              <xs:annotation>
+                <xs:documentation>The "materialName" element captures the vendor's specific name for the material. For example, EOS Titanium Ti64 would have a vendorMaterialName of "EOS Titanium Ti64". </xs:documentation>
+              </xs:annotation>
+            </xs:element>
+            <xs:element name="vendorMaterialID" type="xs:string">
+              <xs:annotation>
+                <xs:documentation>The "materialID" element captures the vendor supplied ID for the material. For example, EOS Titanium Ti64 would have a materialID of "9011-0014".</xs:documentation>
+              </xs:annotation>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
