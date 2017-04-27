@@ -1,0 +1,29 @@
+<amTestDB xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <amUnitTest>
+            <testID>Test_GrainSize_Z</testID>
+            <testType>GRAIN</testType>
+            <testOperator>NIST</testOperator>
+            <testLocation>Gaithersburg, MD</testLocation>
+            <startTime>2014-05-01T00:00:00</startTime>
+            <stopTime>2014-05-01T00:00:00</stopTime>
+            <partID>Not Specified</partID>
+            <buildID>EWI_JIP_625_NISTbuild</buildID>
+            <specimenID>Not Specified</specimenID>
+            <specimenPreparation>As-built and heat treated</specimenPreparation>
+            <testStandards>ASTM E112</testStandards>
+            <testEquipment>
+                <machineID>Not Specified</machineID>
+            </testEquipment>
+            <testResults>
+                <grain>
+                    <direction>Z</direction>
+                    <grainSize>
+                        <unit>um</unit>
+                        <value>
+                            <average>4.0</average>
+                        </value>
+                    </grainSize>
+                </grain>
+            </testResults>
+        </amUnitTest>
+</amTestDB>

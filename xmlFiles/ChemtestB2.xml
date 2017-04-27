@@ -1,0 +1,134 @@
+<amTestDB xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <amUnitTest>
+            <testID>Test_Chemistry_B2</testID>
+            <testType>CHEMISTRY</testType>
+            <testOperator>Luvak, Inc</testOperator>
+            <testLocation>Boylston, MA</testLocation>
+            <startTime>2000-05-01T00:00:00</startTime>
+            <stopTime>2000-05-01T00:00:00</stopTime>
+            <partID>MET2</partID>
+            <buildID>EWI_JIP_625_DMC_Build2</buildID>
+            <specimenID>Not Specified</specimenID>
+            <specimenPreparation>As-built</specimenPreparation>
+            <testStandards>ASTM E1019-11, ASTM E 1019-11, and ASTM E 1097-12</testStandards>
+            <testEquipment>
+                <machineID>Not Specified</machineID>
+            </testEquipment>
+            <testResults>
+                <chemistry>
+                    <measureMethods> Based on ASTM standards</measureMethods>
+                    <Ingredient>
+                        <name>Oxygen</name>
+                        <unit>weight %</unit>
+                        <value>
+                            <average>0.037</average>
+                        </value>
+                    </Ingredient>
+                    <Ingredient>
+                        <name>Carbon</name>
+                        <unit>weight %</unit>
+                        <value>
+                            <average>0.018</average>
+                        </value>
+                    </Ingredient>
+                    <Ingredient>
+                        <name>Nitrogen</name>
+                        <unit>weight %</unit>
+                        <value>
+                            <average>0.074</average>
+                        </value>
+                    </Ingredient>
+                    <Ingredient>
+                        <name>Sulfur</name>
+                        <unit>weight %</unit>
+                        <value>
+                            <average>0.002</average>
+                        </value>
+                    </Ingredient>
+                    <Ingredient>
+                        <name>Manganese</name>
+                        <unit>weight %</unit>
+                        <value>
+                            <average>0.32</average>
+                        </value>
+                    </Ingredient>
+                    <Ingredient>
+                        <name>Silicon</name>
+                        <unit>weight %</unit>
+                        <value>
+                            <average>0.37</average>
+                        </value>
+                    </Ingredient>
+                    <Ingredient>
+                        <name>Phosphorus</name>
+                        <unit>weight %</unit>
+                        <value>
+                            <average>0.004</average>
+                        </value>
+                    </Ingredient>
+                    <Ingredient>
+                        <name>Chromium</name>
+                        <unit>weight %</unit>
+                        <value>
+                            <average>21.45</average>
+                        </value>
+                    </Ingredient>
+                    <Ingredient>
+                        <name>Molybdenum</name>
+                        <unit>weight %</unit>
+                        <value>
+                            <average>9.15</average>
+                        </value>
+                    </Ingredient>
+                    <Ingredient>
+                        <name>Niobium</name>
+                        <unit>weight %</unit>
+                        <value>
+                            <average>3.55</average>
+                        </value>
+                    </Ingredient>
+                    <Ingredient>
+                        <name>Tantalum</name>
+                        <unit>weight %</unit>
+                        <value>
+                            <max>0.002</max>
+                        </value>
+                    </Ingredient>
+                    <Ingredient>
+                        <name>Cobalt</name>
+                        <unit>weight %</unit>
+                        <value>
+                            <average>0.019</average>
+                        </value>
+                    </Ingredient>
+                    <Ingredient>
+                        <name>Titanium</name>
+                        <unit>weight %</unit>
+                        <value>
+                            <average>0.013</average>
+                        </value>
+                    </Ingredient>
+                    <Ingredient>
+                        <name>Aluminum</name>
+                        <unit>weight %</unit>
+                        <value>
+                            <average>0.045</average>
+                        </value>
+                    </Ingredient>
+                    <Ingredient>
+                        <name>Iron</name>
+                        <unit>weight %</unit>
+                        <value>
+                            <average>0.14</average>
+                        </value>
+                    </Ingredient>
+                    <Ingredient>
+                        <name>Nickel</name>
+                        <description>balance</description>
+                        <unit/>
+                        <value/>
+                    </Ingredient>
+                </chemistry>
+            </testResults>
+        </amUnitTest>
+</amTestDB>

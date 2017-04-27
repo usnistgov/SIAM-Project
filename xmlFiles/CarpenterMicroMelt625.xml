@@ -1,0 +1,172 @@
+<amVendorMaterialDB xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <amVendorMaterial>
+        <generalInfo>
+            <materialVendor>Carpenter</materialVendor>
+            <materialType>NickeAlloy</materialType>
+            <materialName>IN625</materialName>
+            <vendorMaterialName>Micro-Melt@ 625AM</vendorMaterialName>
+            <vendorMaterialID>3213103-0003</vendorMaterialID>
+        </generalInfo>
+        <vendorProvidedPowderMaterialProperties>
+            <powderComposition>
+                <measureMethods>Certified by Carpenter</measureMethods>
+                <Ingredient>
+                    <name>Carbon</name>
+                    <unit>weight %</unit>
+                    <value>
+                        <max>0.10</max>
+                    </value>
+                </Ingredient>
+                <Ingredient>
+                    <name>Manganese</name>
+                    <unit>weight %</unit>
+                    <value>
+                        <max>0.50</max>
+                    </value>
+                </Ingredient>
+                <Ingredient>
+                    <name>Sulfur</name>
+                    <unit>weight %</unit>
+                    <value>
+                        <max>0.015</max>
+                    </value>
+                </Ingredient>
+                <Ingredient>
+                    <name>Chromium</name>
+                    <unit>weight %</unit>
+                    <value>
+                        <min>20</min>
+                        <max>23</max>
+                    </value>
+                </Ingredient>
+                <Ingredient>
+                    <name>Molybdenum</name>
+                    <unit>weight %</unit>
+                    <value>
+                        <min>8</min>
+                        <max>10</max>
+                    </value>
+                </Ingredient>
+                <Ingredient>
+                    <name>Al</name>
+                    <unit>weight %</unit>
+                    <value>
+                        <max>0.40</max>
+                    </value>
+                </Ingredient>
+                <Ingredient>
+                    <name>Cobalt</name>
+                    <unit>weight %</unit>
+                    <value>
+                        <max>1</max>
+                    </value>
+                </Ingredient>
+                <Ingredient>
+                    <name>Nickel</name>
+                    <description>Balance</description>
+                    <unit>weight %</unit>
+                    <value/>
+                </Ingredient>
+                <Ingredient>
+                    <name>Titanium</name>
+                    <unit>weight %</unit>
+                    <value>
+                        <max>0.40</max>
+                    </value>
+                </Ingredient>
+                <Ingredient>
+                    <name>Silicon</name>
+                    <unit>weight %</unit>
+                    <value>
+                        <max>0.5</max>
+                    </value>
+                </Ingredient>
+                <Ingredient>
+                    <name>Phosphorous</name>
+                    <unit>weight %</unit>
+                    <value>
+                        <max>0.015</max>
+                    </value>
+                </Ingredient>
+                <Ingredient>
+                    <name>Niobium</name>
+                    <unit>weight %</unit>
+                    <value>
+                        <min>3.15</min>
+                        <max>4.15</max>
+                    </value>
+                </Ingredient>
+                <Ingredient>
+                    <name>Nitrogen</name>
+                    <unit>weight %</unit>
+                    <value>
+                        <nominalValue>0.1</nominalValue>
+                    </value>
+                </Ingredient>
+                <Ingredient>
+                    <name>Oxygen</name>
+                    <unit>weight %</unit>
+                    <value>
+                        <nominalValue>0.02</nominalValue>
+                    </value>
+                </Ingredient>
+                <Ingredient>
+                    <name>Tantalum</name>
+                    <unit>weight %</unit>
+                    <value>
+                        <max>0.40</max>
+                    </value>
+                </Ingredient>
+                <Ingredient>
+                    <name>Iron</name>
+                    <unit>weight %</unit>
+                    <value>
+                        <max>5</max>
+                    </value>
+                </Ingredient>
+            </powderComposition>
+            <powderDensity>
+                <apparentDensity/>
+                <tapDensity>
+                    <measurementMethod>N/A</measurementMethod>
+                    <tapDensityValue>
+                        <unit>gm/cc</unit>
+                        <value>
+                            <nominalValue>5.1</nominalValue>
+                        </value>
+                    </tapDensityValue>
+                </tapDensity>
+            </powderDensity>
+            <powderSize>
+                <DValues>
+                    <measurementMethod>Sieve Analysis</measurementMethod>
+                    <DValueItem>
+                        <name>D10</name>
+                        <unit>micron</unit>
+                        <value>
+                            <average>13.4</average>
+                        </value>
+                    </DValueItem>
+                    <DValueItem>
+                        <name>D50</name>
+                        <unit>micron</unit>
+                        <value>
+                            <average>28.4</average>
+                        </value>
+                    </DValueItem>
+                    <DValueItem>
+                        <name>D80</name>
+                        <unit>micron</unit>
+                        <value>
+                            <average>43.0</average>
+                        </value>
+                    </DValueItem>
+                </DValues>
+            </powderSize>
+            <particleProperties/>
+            <physicalProperties/>
+        </vendorProvidedPowderMaterialProperties>
+        <conformance>AMS 5666F</conformance>
+        <powderManufacturingMethod>Nitrogen Atomized</powderManufacturingMethod>
+    </amVendorMaterial>
+</amVendorMaterialDB>

@@ -1,0 +1,70 @@
+<amMachineDB xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <amMachine>
+        <name>NIST_EOS270</name>
+        <description>EOS EOSINT M270</description>
+        <owner>NIST</owner>
+        <manufacturer>EOS</manufacturer>
+        <model>EOSINT M 270</model>
+        <serialNumber>992</serialNumber>
+        <dateOfMade>2012-12-01</dateOfMade>
+        <location>Gaithersburg</location>
+        <processCategory>LPBF</processCategory>
+        <numOfLasers>1</numOfLasers>
+        <laserSystem>
+            <machineVendor>IPG</machineVendor>
+            <machineModel>YLR-200-SM-EOS</machineModel>
+            <machineSerialNumber>10061428</machineSerialNumber>
+            <laserType>Single Mode Fiber</laserType>
+            <dateOfMade>2013-06-24</dateOfMade>
+            <ratedPower>
+                <unit>W</unit>
+                <value>
+                    <nominalValue>195</nominalValue>
+                </value>
+            </ratedPower>
+            <ratedWaveLength>Pulse</ratedWaveLength>
+            <lensType>F-theta-lens</lensType>
+            <lensInstallationDate>2013-06-24</lensInstallationDate>
+            <laserMode>Single</laserMode>
+            <laserBeam>
+                <beamShape>Elliptical</beamShape>
+                <minBeamSpot>
+                    <unit>micrometer</unit>
+                    <value>
+                        <nominalValue>100</nominalValue>
+                    </value>
+                </minBeamSpot>
+                <maxBeamSpot>
+                    <unit>micrometer</unit>
+                    <value>
+                        <nominalValue>500</nominalValue>
+                    </value>
+                </maxBeamSpot>
+            </laserBeam>
+        </laserSystem>
+        <softwareSystem>
+            <updateHistory>
+                <operatorName>Shawn Kelly</operatorName>
+                <updatedVersion>PSW 3.5 (Build 40)</updatedVersion>
+                <dateOfUpdate>2013-06-24</dateOfUpdate>
+            </updateHistory>
+        </softwareSystem>
+        <scanSpeedMax>
+            <unit>m/s</unit>
+            <value>
+                <max>7.0</max>
+            </value>
+        </scanSpeedMax>
+        <calibrationHistory>
+            <calibrationDataItem>
+                <description/>
+                <fileLocation/>
+                <calibrationDate>2013-06-24</calibrationDate>
+                <operator>
+                    <Name>Shawn Kelly</Name>
+                </operator>
+            </calibrationDataItem>
+        </calibrationHistory>
+        <noRecoatBlader>1</noRecoatBlader>
+    </amMachine>
+</amMachineDB>
